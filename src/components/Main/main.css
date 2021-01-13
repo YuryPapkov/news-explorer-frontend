@@ -8,27 +8,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 .main__title {
-  margin-top: 0;
-  margin-bottom: 18px;
-  max-width: 470px;
-  color: white;
-  padding: 0 130px 0 0;
+  margin: 0;
+  max-width: 608px;
+  padding: 75px 0 35px 0;
   font-family: RobotoSlab;
   font-weight: 500;
-  color: brown;
   font-size: 60px;
   line-height: 1.1;
 }
 
 .main__text {
-  margin-right: 65px;
+  margin: 0;
   line-height: 1.4;
-  max-width: 533px;
+  max-width: 608px;
+  padding-bottom: 55px;
   font-family: Roboto;
   font-weight: 400;
   font-size: 18px;
-  color: brown;
 }

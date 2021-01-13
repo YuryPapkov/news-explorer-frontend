@@ -9,14 +9,16 @@
 .about__avatar {
   object-fit: contain;
   margin: auto 56px auto 104px;
-  width: 464px;
-  height: 464px;
+  width: 33vw;
+  max-width: 464px;
+  max-height: 464px;
   border-radius: 50%;
 }
 
 .about__info-block {
-  margin-right: 216px;
-  width: 600px;
+  margin-right: 15vw;
+  max-width: 600px;
+  width: 40vw;
   min-height: 464px;
   padding-top: 50px;
 }
