@@ -1,0 +1,20 @@
+.navigation {
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.navigation__link {
+  font-family: 'Roboto';
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  box-sizing: border-box;
+  height: inherit;
+  line-height: 80px;
+  margin-left: 20px;
+}
+
+.navigation__link_active {
+  border-bottom: solid white 5px;
+}

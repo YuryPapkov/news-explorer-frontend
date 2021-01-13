@@ -1,0 +1,34 @@
+.main {
+  background-image: url(../../images/back.png);
+  margin-top: -80px;
+  background-position: bottom;
+  max-width: 1440px;
+  min-height: 576px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main__title {
+  margin-top: 0;
+  margin-bottom: 18px;
+  max-width: 470px;
+  color: white;
+  padding: 0 130px 0 0;
+  font-family: RobotoSlab;
+  font-weight: 500;
+  color: brown;
+  font-size: 60px;
+  line-height: 1.1;
+}
+
+.main__text {
+  margin-right: 65px;
+  line-height: 1.4;
+  max-width: 533px;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 18px;
+  color: brown;
+}

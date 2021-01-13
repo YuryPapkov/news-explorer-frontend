@@ -1,0 +1,28 @@
+.search {
+  font-family: "Roboto";
+  font-size: 18px;
+  padding: 0;
+  border: 0;
+  width: 608px;
+  height: 64px;
+  border-radius: 32px;
+  background-color: white;
+  display: flex;
+}
+
+.search__input {
+  padding: 0;
+  border: 0;
+  height: inherit;
+  width: 440px;
+  border-radius: inherit;
+}
+
+.search__button {
+  color: white;
+  border: 0;
+  height: inherit;
+  border-radius: inherit;
+  width: 168px;
+  background-color: #2f71e5;
+}
