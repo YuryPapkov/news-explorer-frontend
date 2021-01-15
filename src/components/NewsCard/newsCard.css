@@ -1,0 +1,121 @@
+.card {
+  height: 576px;
+  width: 27vw;
+  max-width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+  position: relative;
+}
+
+.card__button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.card__button::before {
+  content: 'Войти чтобы... лорлорло';
+  padding: 0 10px;
+  border-radius: 5px;
+  position: absolute;
+  right: 50px;
+  top: 0;
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  white-space: nowrap;
+  background-color: white;
+  transition: opacity .3s ease-in-out;
+  opacity: 0;
+  z-index: -1;
+}
+
+.card__button:hover::before {
+  opacity: 1;
+  z-index: 1;
+}
+
+.card__button::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  background-image: url('../../images/flag-hover.svg');
+}
+
+.card__button:hover::after {
+  content: "";
+  opacity: 1;
+}
+
+.card__image {
+  width: 100%;
+  height: 47%;
+  object-fit: cover;
+}
+
+.card__content-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 88%;
+  height: 45%;
+  margin: auto;
+}
+
+.card__date {
+  margin: 18px 0 12px 0;
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #B6BCBF;
+}
+
+.card__title {
+  margin: 0 0 15px 0;
+  font-family: RobotoSlab;
+  font-size: 26px;
+  line-height: 30px;
+  color: #1A1B22;
+}
+
+.card__text {
+  margin: 0;
+  font-family: Roboto;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1A1B22;
+  min-height: 0;
+  flex: auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card__source {
+  width: 88%;
+  margin: auto;
+  font-family: RobotoSlab;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #B6BCBF;
+  background-color: white;
+  box-shadow: 0 -15px 16px 5px white;
+  position: relative;
+}

@@ -18,3 +18,5 @@ code {
 @import url("./components/Navigation/navigation.css");
 @import url("./components/About/about.css");
 @import url("./components/Footer/footer.css");
+@import url("./components/NewsCard/newsCard.css");
+@import url("./components/NewsCardList/newsCardList.css");

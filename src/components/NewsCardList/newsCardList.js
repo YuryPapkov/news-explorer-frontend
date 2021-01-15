@@ -1,20 +1,19 @@
 import React from 'react';
 import NewsCard from '../NewsCard/newsCard.js';
+import tempArticles from '../../constants/tempArticles.js';
 
-function Footer() {
+function NewsCardList() {
   return (
     <div className="list">
       <h2 className="list__title">Результаты поиска</h2>
       <ul className="list__cards">
-        <li>
-          <NewsCard />
-        </li>
-        <li>
-          <NewsCard />
-        </li>
-        <li>
-          <NewsCard />
-        </li>
+        {tempArticles.map((item) =>
+          <NewsCard
+            key={item._id}
+            card={item}
+          />
+        )}
+
       </ul>
       <button>Показать еще</button>
 
@@ -32,4 +31,4 @@ function Footer() {
     // </footer>
   );
 }
-export default Footer;
+export default NewsCardList;
