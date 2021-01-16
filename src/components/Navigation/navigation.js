@@ -9,7 +9,7 @@ function Navigation({ isLoggedIn }) {
         className="navigation__link">Главная
       </NavLink>
       {isLoggedIn &&
-        <NavLink exact to="/auth" activeClassName="navigation__link_active"
+        <NavLink exact to="/saved-news" activeClassName="navigation__link_active"
           className="navigation__link">Сохраненные статьи
       </NavLink>
       }

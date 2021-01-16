@@ -8,6 +8,20 @@
   position: relative;
 }
 
+.card__keyword {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  border: 0;
+  border-radius: 5px;
+  margin: 0;
+  padding: 0 10px;
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  background-color: white;
+}
+
 .card__button {
   position: absolute;
   top: 25px;
@@ -15,10 +29,11 @@
   background-color: transparent;
   border: 0;
   padding: 0;
+  outline: none;
 }
 
 .card__button::before {
-  content: 'Войти чтобы... лорлорло';
+  content: "";
   padding: 0 10px;
   border-radius: 5px;
   position: absolute;
@@ -48,7 +63,24 @@
   height: 40px;
   opacity: 0;
   transition: opacity .3s ease-in-out;
+}
+
+.card__button_type_main::before {
+  content: 'Войти чтобы...';
+}
+
+.card__button_type_saved-cards::before {
+  content: 'Удалить...';
+}
+
+.card__button_type_main::after {
+  content: "";
   background-image: url('../../images/flag-hover.svg');
+}
+
+.card__button_type_saved-cards::after {
+  content: "";
+  background-image: url('../../images/trash-active.svg');
 }
 
 .card__button:hover::after {
@@ -97,11 +129,11 @@
   color: #1A1B22;
   min-height: 0;
   flex: auto;
-  display: -webkit-box;
+  /* display: -webkit-box;
   -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
   overflow: hidden;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
 }
 
 .card__source {

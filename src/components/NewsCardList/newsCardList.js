@@ -2,7 +2,7 @@ import React from 'react';
 import NewsCard from '../NewsCard/newsCard.js';
 import tempArticles from '../../constants/tempArticles.js';
 
-function NewsCardList() {
+function NewsCardList({ isLoggedIn, isTypeSavedCards }) {
   return (
     <div className="list">
       <h2 className="list__title">Результаты поиска</h2>
@@ -11,11 +11,13 @@ function NewsCardList() {
           <NewsCard
             key={item._id}
             card={item}
+            isLoggedin={isLoggedIn}
+            isTypeSavedCards={isTypeSavedCards}
           />
         )}
 
       </ul>
-      <button>Показать еще</button>
+      <button className="list__button">Показать еще</button>
 
     </div>
 
