@@ -6,13 +6,30 @@ import Main from '../Main/main.js';
 import About from '../About/about.js';
 import Footer from '../Footer/footer.js';
 import NewsCardList from '../NewsCardList/newsCardList.js';
-import PopupWithForm from '../PopupWithForm/popupWithForm.js';
+import Register from '../Register/register.js';
+import Login from '../Login/login.js';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '111', email: '' });
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isBlackText, setIsBlackText] = React.useState(false);
+  const [showLogin, setShowLogin] = React.useState(true);
+  const [showRegister, setShowRegister] = React.useState(false);
+  const [showInfo, setShowInfo] = React.useState(false);
+  const [errorText, setErrorText] = React.useState('Это текст ошибки с сервера');
 
+  function closeAllPopups() {
+    setShowLogin(false);
+    setShowRegister(false);
+    setShowInfo(false);
+  }
+  function handleRegister() {
+    // логика регистрации пользователя
+  }
+
+  function handleLogin() {
+    // логика входа пользователя
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -22,17 +39,9 @@ function App() {
         <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={false} />
         <About />
         <Footer />
-        <PopupWithForm
-          title="Вход"
-          name="login"
-          submitText="Войти"
-          redirectText="Зарегистрироваться"
-          isOpen={true} >
-          <input className="popup__input" type="email" />
-          <input className="popup__input" type="text" />
-          <input className="popup__input" type="text" />
+        <Register isOpen={showRegister} onClose={closeAllPopups} onSubmit={handleRegister} errorText={errorText} />
+        <Login isOpen={showLogin} onClose={closeAllPopups} onSubmit={handleLogin} errorText={errorText} />
 
-        </PopupWithForm>
       </div>
     </CurrentUserContext.Provider>
   );

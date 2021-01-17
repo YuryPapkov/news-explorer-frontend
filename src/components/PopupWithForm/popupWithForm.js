@@ -1,10 +1,11 @@
 import React from 'react';
 import closeButtonPath from '../../images/close.svg';
 
-function PopupWithForm({ title, name, submitText, redirectText, isOpen, onClose, onSubmit, children }) {
-  const className = `popup ${isOpen && 'popup_opened'}`;
+function PopupWithForm({ title, name, submitText, redirectText, isOpen, onClose, onSubmit, errorText, isValid, children }) {
+  const classNameForm = `popup ${isOpen && 'popup_opened'}`;
+  const classNameSubmitButton = `popup__save-button ${isValid && 'popup__save-button_active'}`;
   return (
-    <div className={className}>
+    <div className={classNameForm}>
       <form
         name={name}
         onSubmit={onSubmit}
@@ -12,12 +13,13 @@ function PopupWithForm({ title, name, submitText, redirectText, isOpen, onClose,
         noValidate>
         <p className="popup__text">{title}</p>
         {children}
+        <p className="popup__error popup__error_type_server">{errorText}</p>
         <button
           type="submit"
-          className="popup__save-button">
+          className={classNameSubmitButton}>
           {submitText}
         </button>
-        <p>или <button className="popup__redirect-button">{redirectText}</button></p>
+        <p className="popup__redirect-message">или <button className="popup__redirect-button">{redirectText}</button></p>
         <button
           type="reset"
           className="popup__close-button"
