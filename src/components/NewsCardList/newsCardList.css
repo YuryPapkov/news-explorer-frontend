@@ -36,3 +36,8 @@
   border-radius: 40px;
   outline: none;
 }
+
+.list__button_invisible {
+  height: 0;
+  overflow: hidden;
+}
