@@ -1,0 +1,25 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 0 80px 0;
+  background-color: #f5f6f7;
+}
+
+.box__picture {}
+
+.box__text {
+  font-family: 'RobotoSlab';
+  font-size: 26px;
+  text-align: center;
+  color: #1a1b22;
+}
+
+.box__info {
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: #b6bcbf;
+  margin: 0;
+}

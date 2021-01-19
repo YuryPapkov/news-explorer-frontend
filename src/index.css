@@ -21,3 +21,7 @@ code {
 @import url("./components/NewsCard/newsCard.css");
 @import url("./components/NewsCardList/newsCardList.css");
 @import url("./components/PopupWithForm/popupWithForm.css");
+@import url("./components/SavedNewsHeader/savedNewsHeader.css");
+@import url("./components/NotFoundBox/notFoundBox.css");
+@import url("./components/Preloader/preloader.css");
+@import url("./components/PopupInfo/popupInfo.css");

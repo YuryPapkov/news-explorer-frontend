@@ -1,0 +1,35 @@
+.sn-header {
+  padding: 50px 104px 15px 104px;
+  display: flex;
+  color: #1A1B22;
+  flex-direction: column;
+  background-color: #f5f6f7;
+  /* background-color: cadetblue; */
+}
+
+.sn-header__title {
+  font-family: Roboto;
+  font-size: 18px;
+  margin: 0;
+  padding-bottom: 25px;
+  color: rgba(26, 27, 34, .5);
+}
+
+.sn-header__info {
+  margin: 0;
+  padding-bottom: 17px;
+  font-family: RobotoSlab;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 46px;
+}
+
+.sn-header__subtitle {
+  font-family: Roboto;
+  font-size: 18px;
+}
+
+.sn-header__span {
+  font-weight: 700;
+}
