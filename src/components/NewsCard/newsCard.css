@@ -66,11 +66,11 @@
 }
 
 .card__button_type_main::before {
-  content: 'Войти чтобы...';
+  content: 'Войдите, чтобы сохранять статьи';
 }
 
 .card__button_type_saved-cards::before {
-  content: 'Удалить...';
+  content: 'Убрать из сохраненных';
 }
 
 .card__button_type_main::after {

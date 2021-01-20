@@ -32,4 +32,6 @@
   border: solid 1px;
   border-color: inherit;
   border-radius: 40px;
+  cursor: pointer;
+  outline: none;
 }

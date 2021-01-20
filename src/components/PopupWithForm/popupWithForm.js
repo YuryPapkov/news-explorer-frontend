@@ -4,7 +4,7 @@ import closeButtonPath from '../../images/close.svg';
 function PopupWithForm({ title, name, submitText, redirectText, isOpen, onClose, onSubmit, errorText, isValid, children }) {
   const classNameForm = `popup ${isOpen && 'popup_opened'}`;
   const classNameSubmitButton = `popup__save-button ${isValid && 'popup__save-button_active'}`;
-  const classNameOverlay = `${isOpen && 'popup__overlay'}`;
+  const classNameOverlay = `popup__overlay ${isOpen && 'popup__overlay_opened'}`;
 
   React.useEffect(() => {
     document.querySelector('.popup__overlay').addEventListener('click', onClose);
