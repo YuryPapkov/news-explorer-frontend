@@ -30,28 +30,64 @@ function App() {
   const [errorText, setErrorText] = React.useState('Это текст ошибки с сервера');
 
   document.addEventListener('keyup', (evt) => {
-    console.log(evt.code);
+    // console.log(evt.code);
     if (evt.code === 'Escape') {
       closeAllPopups();
     }
   })
 
+  function handleSubmitSearch(evt) {
+    evt.preventDefault();
+    setShowPreloader(true);
+    setTimeout(() => {
+      setIsSomethingFound(Math.random() > .5);
+      setHasUserPressedSearchOnce(true);
+      setShowPreloader(false);
+    }, 1000)
 
+  }
 
+  function openRegisterPopup() {
+    setShowRegister(true);
+  }
 
+  function openLoginPopup() {
+    setShowLogin(true);
+  }
   function closeAllPopups() {
     setShowLogin(false);
     setShowRegister(false);
     setShowInfo(false);
   }
-  function handleRegister() {
-    // логика регистрации пользователя
+
+  function redirectToLogin() {
+    closeAllPopups();
+    openLoginPopup();
   }
 
-  function handleLogin() {
-    // логика авторизации
+  function redirectToRegister() {
+    closeAllPopups();
+    openRegisterPopup();
+  }
 
+  function handleRegister(evt) {
+    evt.preventDefault();
+    // логика регистрации пользователя
+    let rand = Math.floor(Math.random() * 10);
+    if (rand > 5) {
+      closeAllPopups();
+      setShowInfo(true);
+    } else {
+      setErrorText('Регистр. если случ.число  =' + rand + '=  окажется больше 5');
+    }
+  }
+
+  function handleLogin(evt) {
+    evt.preventDefault();
+    // логика авторизации
+    setCurrentUser(Math.random() > .5 ? { name: 'Дональд' } : { name: 'Джо' });
     console.log('ki-Login');
+    closeAllPopups();
     setIsLoggedIn(true);
   }
 
@@ -66,8 +102,8 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Route exact path="/">
-          <Header isLoggedIn={isLoggedIn} isBlackText={false} handleClick={isLoggedIn ? handleLogout : handleLogin} />
-          <Main />
+          <Header isLoggedIn={isLoggedIn} isBlackText={false} handleClick={isLoggedIn ? handleLogout : openLoginPopup} />
+          <Main onSubmit={handleSubmitSearch} />
           {hasUserPressedSearchOnce &&
             (isSomethingFound ?
               <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={false} /> :
@@ -84,9 +120,24 @@ function App() {
         </Route>
         <Footer />
         {showPreloader && <Preloader />}
-        <Register isOpen={showRegister} onClose={closeAllPopups} onSubmit={handleRegister} errorText={errorText} />
-        <Login isOpen={showLogin} onClose={closeAllPopups} onSubmit={handleLogin} errorText={errorText} />
-        <PopupInfo isOpen={showInfo} onClose={closeAllPopups} title='Пользователь успешно зарегистрирован.' redirectText='Войти' />
+        <Register
+          isOpen={showRegister}
+          onClose={closeAllPopups}
+          onSubmit={handleRegister}
+          onRedirect={redirectToLogin}
+          errorText={errorText} />
+        <Login
+          isOpen={showLogin}
+          onClose={closeAllPopups}
+          onSubmit={handleLogin}
+          onRedirect={redirectToRegister}
+          errorText={errorText} />
+        <PopupInfo
+          isOpen={showInfo}
+          onClose={closeAllPopups}
+          title='Пользователь успешно зарегистрирован.'
+          redirectText='Войти'
+          onRedirect={redirectToLogin} />
 
       </div>
     </CurrentUserContext.Provider>

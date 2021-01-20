@@ -1,10 +1,14 @@
 import React from 'react';
 
-function SearchForm() {
+function SearchForm({ onSubmit }) {
   return (
-    <form className="search">
+    <form className="search" onSubmit={onSubmit}>
       <input name="search" type="text" className="search__input" autoComplete="off"></input>
-      <button type="submit" className="search__button">Искать</button>
+      <button
+        type="submit"
+        className="search__button">
+        Искать
+        </button>
     </form>
   );
 }

@@ -1,19 +1,30 @@
 import React from 'react';
 import closeButtonPath from '../../images/close.svg';
 
-function PopupWithForm({ title, name, submitText, redirectText, isOpen, onClose, onSubmit, errorText, isValid, children }) {
+function PopupWithForm({
+  title,
+  name,
+  submitText,
+  redirectText,
+  onRedirect,
+  isOpen,
+  onClose,
+  onSubmit,
+  errorText,
+  isValid,
+  children }) {
   const classNameForm = `popup ${isOpen && 'popup_opened'}`;
   const classNameSubmitButton = `popup__save-button ${isValid && 'popup__save-button_active'}`;
-  const classNameOverlay = `popup__overlay ${isOpen && 'popup__overlay_opened'}`;
+  // const classNameOverlay = `popup__overlay ${isOpen && 'popup__overlay_opened'}`;
 
-  React.useEffect(() => {
-    document.querySelector('.popup__overlay').addEventListener('click', onClose);
-    // console.log(document.querySelector('.popup__overlay'));
-  }, []);
+  // React.useEffect(() => {
+  //   document.querySelector('.popup__overlay').addEventListener('click', onClose);
+  //   // console.log(document.querySelector('.popup__overlay'));
+  // }, [isOpen, onClose]);
 
   return (
     <div className={classNameForm}>
-      <div className={classNameOverlay}></div>
+      <div className='popup__overlay' onClick={onClose}></div>
       <form
         name={name}
         onSubmit={onSubmit}
@@ -27,7 +38,9 @@ function PopupWithForm({ title, name, submitText, redirectText, isOpen, onClose,
           className={classNameSubmitButton}>
           {submitText}
         </button>
-        <p className="popup__redirect-message">или <button className="popup__redirect-button">{redirectText}</button></p>
+        <p className="popup__redirect-message">
+          или <button type="reset" className="popup__redirect-button" onClick={onRedirect}>{redirectText}</button>
+        </p>
         <button
           type="reset"
           className="popup__close-button"

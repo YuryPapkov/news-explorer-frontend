@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from '../PopupWithForm/popupWithForm.js';
 import useFormValidation from '../../utils/useFormValidation.js';
 
-function Register({ isOpen, onClose, onSubmit, errorText }) {
+function Register({ isOpen, onClose, onRedirect, onSubmit, errorText }) {
   const validator = useFormValidation();
   const handleChange = (e) => {
     validator.handleChange(e);
@@ -17,6 +17,7 @@ function Register({ isOpen, onClose, onSubmit, errorText }) {
       name='register'
       submitText='Зарегистрироваться'
       redirectText='Войти'
+      onRedirect={onRedirect}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={onSubmit}
