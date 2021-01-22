@@ -11,17 +11,36 @@
   color: #1a1b22
 }
 
+@media(max-width:1000px) {
+  .footer {
+    padding: 0 40px;
+    height: 64px;
+  }
+}
+
 .footer__copyright {
   font-size: 16px;
   color: #b6bcbf;
+  margin: 0;
 }
 
 .footer__icon {
   margin-left: 24px;
 }
 
+.footer__link-container {
+  display: flex;
+  align-items: center;
+}
+
 .footer__link {
   text-decoration: none;
   color: #1a1b22;
   margin: 0 24px;
+}
+
+@media(max-width:1000px) {
+  .footer__link {
+    margin: 0 10px;
+  }
 }

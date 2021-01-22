@@ -10,6 +10,13 @@
   display: flex;
 }
 
+@media(max-width:1000px) {
+  .search {
+    width: 452px;
+    height: 56px;
+  }
+}
+
 .search__input {
   padding: 0 0 0 20px;
   border: 0;

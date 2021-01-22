@@ -8,11 +8,24 @@
   z-index: 1;
 }
 
+@media(max-width:1000px) {
+  .header {
+    line-height: .5;
+  }
+}
+
 .header__title {
   font-family: RobotoSlab;
   font-weight: 800;
   padding: 10px 0 0 107px;
   font-size: 21px;
+}
+
+@media(max-width:1000px) {
+  .header__title {
+    font-size: 20px;
+    padding: 10px 0 0 40px;
+  }
 }
 
 .header__manage-box {
@@ -34,4 +47,12 @@
   border-radius: 40px;
   cursor: pointer;
   outline: none;
+}
+
+@media(max-width:1000px) {
+  .header__button {
+    height: 40px;
+    font-size: 16px;
+    margin: auto 40px auto 25px;
+  }
 }

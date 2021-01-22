@@ -15,7 +15,7 @@ function NewsCardList({ isLoggedIn, isTypeSavedCards }) {
 
   return (
     <div className="list">
-      <h2 className="list__title">Результаты поиска</h2>
+      {!isTypeSavedCards && <h2 className="list__title">Результаты поиска</h2>}
       <ul className="list__cards">
         {arrayToShow.map((item) =>
           <NewsCard
