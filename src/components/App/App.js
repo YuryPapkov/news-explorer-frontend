@@ -8,13 +8,14 @@ import Main from '../Main/main.js';
 import About from '../About/about.js';
 import Footer from '../Footer/footer.js';
 import NewsCardList from '../NewsCardList/newsCardList.js';
-// import SavedNews from '../SavedNews/savedNews.js';
 import Register from '../Register/register.js';
 import Login from '../Login/login.js';
 import PopupInfo from '../PopupInfo/popupInfo.js';
+import SavedNews from '../SavedNews/savedNews.js';
 import SavedNewsHeader from '../SavedNewsHeader/savedNewsHeader.js';
 import NotFoundBox from '../NotFoundBox/notFoundBox.js';
 import Preloader from '../Preloader/preloader.js';
+import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: 'Грета', email: 'greta@yandex.ru' });
@@ -113,11 +114,18 @@ function App() {
 
           <About />
         </Route>
+        <ProtectedRoute path="/saved-news"
+          isLoggedIn={isLoggedIn}
+          handleLogout={handleLogout}
+          component={SavedNews}
+        />
+        {/* 
         <Route path="/saved-news">
+          <SavedNews isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
           <Header isLoggedIn={true} isBlackText={true} handleClick={handleLogout} />
           <SavedNewsHeader />
           <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={true} />
-        </Route>
+        </Route> */}
         <Footer />
         {showPreloader && <Preloader />}
         <Register
