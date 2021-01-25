@@ -3,7 +3,7 @@ import authorPath from '../../images/myphoto.jpg';
 
 function About() {
   return (
-    <div className="about" >
+    <div className="about content" >
       <img src={authorPath} className="about__avatar" alt="фото автора проекта" />
       <div className="about__info-block">
         <h2 className="about__title">Об авторе</h2>

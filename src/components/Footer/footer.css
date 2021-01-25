@@ -1,7 +1,6 @@
 .footer {
   height: 80px;
   max-width: 1440px;
-  padding: 0 104px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,8 +12,17 @@
 
 @media(max-width:1000px) {
   .footer {
-    padding: 0 40px;
     height: 64px;
+  }
+}
+
+@media(max-width:700px) {
+  .footer {
+    height: 150px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
@@ -31,6 +39,13 @@
 .footer__link-container {
   display: flex;
   align-items: center;
+}
+
+@media(max-width:700px) {
+  .footer__link-container {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 .footer__link {

@@ -9,6 +9,14 @@
   }
 }
 
+@media(max-width:700px) {
+  .navigation {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+  }
+}
+
 .navigation__link {
   font-family: 'Roboto';
   font-size: 18px;
@@ -28,7 +36,21 @@
   }
 }
 
+@media(max-width:700px) {
+  .navigation__link {
+    font-size: 18px;
+    padding-left: 40px;
+    margin: 0;
+  }
+}
+
 .navigation__link_active {
   border-bottom: solid 3px;
   background-color: inherit;
+}
+
+@media(max-width:700px) {
+  .navigation__link_active {
+    border-bottom: 0;
+  }
 }

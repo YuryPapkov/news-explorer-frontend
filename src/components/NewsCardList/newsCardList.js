@@ -14,7 +14,7 @@ function NewsCardList({ isLoggedIn, isTypeSavedCards }) {
     `list__button ${arrayToShow.length === tempArticles.length && 'list__button_invisible'}`;
 
   return (
-    <div className="list">
+    <div className="list content">
       {!isTypeSavedCards && <h2 className="list__title">Результаты поиска</h2>}
       <ul className="list__cards">
         {arrayToShow.map((item) =>

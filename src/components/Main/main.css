@@ -21,6 +21,13 @@
 @media(max-width:1000px) {
   .main__content-box {
     width: 59vw;
+    max-width: 452px;
+  }
+}
+
+@media(max-width:500px) {
+  .main__content-box {
+    width: 100%;
   }
 }
 

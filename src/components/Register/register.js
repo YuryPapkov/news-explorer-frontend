@@ -6,7 +6,7 @@ function Register({ isOpen, onClose, onRedirect, onSubmit, errorText }) {
   const validator = useFormValidation();
   const handleChange = (e) => {
     validator.handleChange(e);
-    console.log(validator.errors);
+    // console.log(validator.errors);
 
   }
 
@@ -30,6 +30,7 @@ function Register({ isOpen, onClose, onRedirect, onSubmit, errorText }) {
         type="email"
         required
         autoComplete="off"
+        placeholder="введите Email"
         onChange={handleChange}
       />
       <span className="popup__error">{validator.errors.email}</span>
@@ -42,6 +43,7 @@ function Register({ isOpen, onClose, onRedirect, onSubmit, errorText }) {
         required
         minLength='1'
         autoComplete="off"
+        placeholder="введите пароль"
         onChange={handleChange}
       />
       <span className="popup__error ">{validator.errors.password}</span>
@@ -54,6 +56,7 @@ function Register({ isOpen, onClose, onRedirect, onSubmit, errorText }) {
         minLength='3'
         required
         autoComplete="off"
+        placeholder="введите имя"
         onChange={handleChange}
       />
       <span className="popup__error ">{validator.errors.name}</span>

@@ -12,7 +12,7 @@ function Login({ isOpen, onClose, onSubmit, onRedirect, errorText }) {
   return (
     <PopupWithForm
       title='Вход'
-      name='register'
+      name='login'
       submitText='Войти'
       redirectText='Зарегистрироваться'
       onRedirect={onRedirect}
@@ -28,6 +28,7 @@ function Login({ isOpen, onClose, onSubmit, onRedirect, errorText }) {
         type="email"
         required
         autoComplete="off"
+        placeholder="введите Email"
         onChange={handleChange}
       />
       <span className="popup__error">{validator.errors.email}</span>
@@ -40,6 +41,7 @@ function Login({ isOpen, onClose, onSubmit, onRedirect, errorText }) {
         required
         minLength='1'
         autoComplete="off"
+        placeholder="введите пароль"
         onChange={handleChange}
       />
       <span className="popup__error ">{validator.errors.password}</span>

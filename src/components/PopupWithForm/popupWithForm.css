@@ -8,6 +8,7 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity .2s ease, visibility .2s ease;
+  z-index: 2;
 }
 
 .popup__overlay {
@@ -39,9 +40,12 @@
   z-index: 2;
 }
 
-@media(max-width:550px) {
+@media(max-width:500px) {
   .popup__container {
-    width: 87%;
+    width: 100%;
+    top: 66px;
+    left: 0;
+    transform: none;
   }
 }
 
@@ -76,6 +80,12 @@
   outline: none;
 }
 
+@media(max-width:500px) {
+  .popup__save-button {
+    width: 83%;
+  }
+}
+
 .popup__save-button_active {
   background-color: #2f71e5;
   color: white;
@@ -98,17 +108,22 @@
   outline: none;
 }
 
-@media(max-width: 550px) {
+@media(max-width: 500px) {
   .popup__close-button {
-    top: -75px;
-    right: 50%;
-    transform: translate(50%);
+    top: -50px;
+    right: 0;
   }
 }
 
 .popup__redirect-message {
   padding: 10px 0 10px 0;
   margin: 0;
+}
+
+@media(max-width:500px) {
+  .popup__redirect-message {
+    margin-bottom: 300px;
+  }
 }
 
 .popup__redirect-button {
@@ -133,6 +148,10 @@
   border: 0;
   outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.popup__input::placeholder {
+  opacity: .2;
 }
 
 .popup__error {

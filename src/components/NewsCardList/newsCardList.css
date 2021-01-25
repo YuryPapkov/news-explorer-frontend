@@ -1,14 +1,9 @@
 .list {
-  padding: 80px 104px;
   display: flex;
   flex-direction: column;
   background-color: #f5f6f7;
-}
-
-@media(max-width:1000px) {
-  .list {
-    padding: 25px 40px;
-  }
+  padding-bottom: 32px;
+  padding-top: 32px;
 }
 
 .list__title {
@@ -26,11 +21,24 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  list-style-type: none;
 }
 
 @media(max-width:1000px) {
   .list__cards {
     gap: 8px;
+  }
+}
+
+@media(max-width:700px) {
+  .list__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:500px) {
+  .list__cards {
+    grid-template-columns: none;
   }
 }
 

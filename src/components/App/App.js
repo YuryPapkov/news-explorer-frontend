@@ -12,7 +12,6 @@ import Register from '../Register/register.js';
 import Login from '../Login/login.js';
 import PopupInfo from '../PopupInfo/popupInfo.js';
 import SavedNews from '../SavedNews/savedNews.js';
-import SavedNewsHeader from '../SavedNewsHeader/savedNewsHeader.js';
 import NotFoundBox from '../NotFoundBox/notFoundBox.js';
 import Preloader from '../Preloader/preloader.js';
 import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
@@ -21,7 +20,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: 'Грета', email: 'greta@yandex.ru' });
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  // const [isBlackText, setIsBlackText] = React.useState(false);
+  const [screenWidth, setScreenWidth] = React.useState(1440);
   const [showLogin, setShowLogin] = React.useState(false);
   const [showRegister, setShowRegister] = React.useState(false);
   const [showInfo, setShowInfo] = React.useState(false);
@@ -31,11 +30,17 @@ function App() {
   const [errorText, setErrorText] = React.useState('Это текст ошибки с сервера');
 
   document.addEventListener('keyup', (evt) => {
-    // console.log(evt.code);
     if (evt.code === 'Escape') {
       closeAllPopups();
     }
   })
+  React.useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    window.addEventListener('resize', () => {
+      setScreenWidth(window.innerWidth);
+    })
+  }, []);
+
 
   function handleSubmitSearch(evt) {
     evt.preventDefault();
@@ -103,7 +108,11 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Route exact path="/">
-          <Header isLoggedIn={isLoggedIn} isBlackText={false} handleClick={isLoggedIn ? handleLogout : openLoginPopup} />
+          <Header
+            screenWidth={screenWidth}
+            isLoggedIn={isLoggedIn}
+            isBlackText={false}
+            handleClick={isLoggedIn ? handleLogout : openLoginPopup} />
           <Main onSubmit={handleSubmitSearch} />
           {hasUserPressedSearchOnce &&
             (isSomethingFound ?
@@ -119,14 +128,7 @@ function App() {
           handleLogout={handleLogout}
           component={SavedNews}
         />
-        {/* 
-        <Route path="/saved-news">
-          <SavedNews isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-          <Header isLoggedIn={true} isBlackText={true} handleClick={handleLogout} />
-          <SavedNewsHeader />
-          <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={true} />
-        </Route> */}
-        <Footer />
+        <Footer screenWidth={screenWidth} />
         {showPreloader && <Preloader />}
         <Register
           isOpen={showRegister}
