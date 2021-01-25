@@ -3,14 +3,32 @@ import classNames from 'classnames';
 import flagPath from '../../images/flag.svg';
 import flagMarkedPath from '../../images/flag-marked.svg';
 import trashBinPath from '../../images/trash.svg';
+import cutString from '../../utils/cutString.js'
+import cutStringFine from '../../utils/cutStringFine.js';
 
 function NewsCard({ card, isLoggedIn, isTypeSavedCards }) {
   const [isMarked, setIsMarked] = React.useState(false);
+  const textFieldRef = React.useRef();
+  const [textLength, setTextLength] = React.useState(300)
   const buttonClasses = classNames(
     'card__button',
     { 'card__button_type_saved-cards': isTypeSavedCards },
     { 'card__button_type_main': !isTypeSavedCards }
   );
+  React.useEffect(() => {
+    textFieldRef.current.innerHTML = textFieldRef.current.innerHTML.slice(0, textLength);
+  }, [textLength]);
+
+  React.useEffect(() => {
+    const scroll = textFieldRef.current.scrollHeight;
+    const textHeight = textFieldRef.current.clientHeight;
+    textFieldRef.current.innerHTML = cutString(scroll, textHeight, textFieldRef.current.innerHTML);
+
+    if (scroll > textHeight) {
+      setTextLength(textLength - 3);
+      textFieldRef.current.innerHTML = cutStringFine(textFieldRef.current.innerHTML);
+    }
+  }, [textLength])
 
   const handleCardClick = (() => {
     // обращение к нашему АПИ и по результату ставим синий флажок
@@ -30,7 +48,7 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards }) {
       <div className="card__content-box">
         <p className=" card__date">{card.date}</p>
         <h3 className="card__title">{card.title}</h3>
-        <p className="card__text">{card.text}</p>
+        <p className="card__text" ref={textFieldRef}>{card.text}</p>
       </div>
       <p className="card__source">{card.source}</p>
     </div >
