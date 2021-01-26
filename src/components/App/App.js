@@ -124,6 +124,7 @@ function App() {
           <About />
         </Route>
         <ProtectedRoute path="/saved-news"
+          screenWidth={screenWidth}
           isLoggedIn={isLoggedIn}
           handleLogout={handleLogout}
           component={SavedNews}

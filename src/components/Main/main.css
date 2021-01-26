@@ -6,6 +6,7 @@
   min-height: 576px;
   align-items: center;
   color: white;
+  box-sizing: border-box;
 }
 
 .main__content-box {
@@ -27,7 +28,7 @@
 
 @media(max-width:500px) {
   .main__content-box {
-    width: 100%;
+    width: auto;
   }
 }
 
