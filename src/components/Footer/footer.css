@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: whitesmoke;
-  font-family: "Roboto";
+  font-family: 'Roboto', 'Arial', sans-serif;
   font-size: 18px;
   color: #1a1b22
 }

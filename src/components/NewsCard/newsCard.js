@@ -16,8 +16,9 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards }) {
     { 'card__button_type_main': !isTypeSavedCards }
   );
   React.useEffect(() => {
+    console.log('ef_1', textFieldRef.current.scrollHeight, textFieldRef.current.clientHeight);
     textFieldRef.current.innerHTML = textFieldRef.current.innerHTML.slice(0, textLength);
-  }, [textLength]);
+  }, []);
 
   React.useEffect(() => {
     const scroll = textFieldRef.current.scrollHeight;
@@ -25,6 +26,7 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards }) {
     textFieldRef.current.innerHTML = cutString(scroll, textHeight, textFieldRef.current.innerHTML);
 
     if (scroll > textHeight) {
+      console.log('ef_2_if', scroll, textHeight);
       setTextLength(textLength - 3);
       textFieldRef.current.innerHTML = cutStringFine(textFieldRef.current.innerHTML);
     }

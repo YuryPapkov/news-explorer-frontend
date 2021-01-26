@@ -4,6 +4,7 @@ function SearchForm({ onSubmit }) {
   return (
     <form className="search" onSubmit={onSubmit}>
       <input
+        required
         name="search"
         type="text"
         className="search__input "

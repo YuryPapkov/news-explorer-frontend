@@ -14,7 +14,7 @@
 }
 
 .sn-header__title {
-  font-family: Roboto;
+  font-family: 'Roboto', 'Arial', sans-serif;
   font-size: 18px;
   margin: 0;
   padding-bottom: 25px;
@@ -31,7 +31,7 @@
 .sn-header__info {
   margin: 0;
   padding-bottom: 17px;
-  font-family: RobotoSlab;
+  font-family: 'RobotoSlab', 'Georgia', serif;
   font-style: normal;
   font-weight: normal;
   font-size: 40px;
@@ -47,7 +47,7 @@
 }
 
 .sn-header__subtitle {
-  font-family: Roboto;
+  font-family: 'Roboto', 'Arial', sans-serif;
   font-size: 18px;
 }
 

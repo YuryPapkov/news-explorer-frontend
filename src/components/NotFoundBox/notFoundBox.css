@@ -7,10 +7,9 @@
   background-color: #f5f6f7;
 }
 
-.box__picture {}
-
 .box__text {
-  font-family: 'RobotoSlab';
+  font-family: 'RobotoSlab', 'Georgia', serif;
+  ;
   font-size: 26px;
   text-align: center;
   color: #1a1b22;
@@ -18,7 +17,7 @@
 
 .box__info {
   text-align: center;
-  font-family: 'Roboto';
+  font-family: 'Roboto', 'Arial', sans-serif;
   font-size: 18px;
   color: #b6bcbf;
   margin: 0;
