@@ -16,6 +16,10 @@ import NotFoundBox from '../NotFoundBox/notFoundBox.js';
 import Preloader from '../Preloader/preloader.js';
 import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
 
+import search from '../../utils/newsApi.js';
+
+
+
 function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: 'Грета', email: 'greta@yandex.ru' });
   const history = useHistory();
@@ -42,9 +46,17 @@ function App() {
   }, []);
 
 
-  function handleSubmitSearch(evt) {
+  function handleSubmitSearch(evt, keyWord) {
     evt.preventDefault();
+    console.log(evt, keyWord);
     setShowPreloader(true);
+    search(keyWord)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     setTimeout(() => {
       setIsSomethingFound(Math.random() > .5);
       setHasUserPressedSearchOnce(true);
