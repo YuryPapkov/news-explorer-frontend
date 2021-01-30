@@ -7,7 +7,7 @@ export default function search(keyWord) {
   const sevenDaysAgo = (new Date(sevenDaysAgoInMilSec)).toISOString();
 
 
-  return fetch(`${BASE_URL}?q=${keyWord}&from=${sevenDaysAgo}&to=${today}&pageSize=3&apiKey=${apiKey}`, {
+  return fetch(`${BASE_URL}?q=${keyWord}&from=${sevenDaysAgo}&to=${today}&pageSize=7&apiKey=${apiKey}`, {
     method: 'GET',
     headers: {
       "Content-Type": "text/plain",

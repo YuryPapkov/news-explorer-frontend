@@ -6,7 +6,7 @@ import trashBinPath from '../../images/trash.svg';
 import cutString from '../../utils/cutString.js'
 import cutStringFine from '../../utils/cutStringFine.js';
 
-function NewsCard({ card, isLoggedIn, isTypeSavedCards }) {
+function NewsCard({ keyy, card, isLoggedIn, isTypeSavedCards }) {
   const [isMarked, setIsMarked] = React.useState(false);
   const textFieldRef = React.useRef();
   const [textLength, setTextLength] = React.useState(300)
@@ -17,17 +17,17 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards }) {
   );
   React.useEffect(() => {
     // console.log('ef_1', textFieldRef.current.scrollHeight, textFieldRef.current.clientHeight);
+    setTextLength(Math.min(300, textFieldRef.current.innerHTML.length));
     textFieldRef.current.innerHTML = textFieldRef.current.innerHTML.slice(0, textLength);
   }, []);
-
   React.useEffect(() => {
     const scroll = textFieldRef.current.scrollHeight;
     const textHeight = textFieldRef.current.clientHeight;
     textFieldRef.current.innerHTML = cutString(scroll, textHeight, textFieldRef.current.innerHTML);
-
-    if (scroll > textHeight) {
+    // console.log('text h= ', textHeight, 'text length=', textLength);
+    if (scroll > textHeight && textHeight > 22) {
       // console.log('ef_2_if', scroll, textHeight);
-      setTextLength(textLength - 3);
+      setTextLength(textLength - 7);
       textFieldRef.current.innerHTML = cutStringFine(textFieldRef.current.innerHTML);
     }
   }, [textLength])

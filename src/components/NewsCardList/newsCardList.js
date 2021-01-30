@@ -2,15 +2,20 @@ import React from 'react';
 import NewsCard from '../NewsCard/newsCard.js';
 import tempArticles from '../../constants/tempArticles.js';
 
-function NewsCardList({ isLoggedIn, isTypeSavedCards }) {
+function NewsCardList({ isLoggedIn, isTypeSavedCards, cards }) {
   const [numberOfCards, setNumberOfCards] = React.useState(3);
   const increaseNumberOfCards = () => {
-    setNumberOfCards(Math.min(numberOfCards + 3, tempArticles.length));
+    setNumberOfCards(Math.min(numberOfCards + 3, cards.length));
   }
-  const arrayToShow = tempArticles.slice(0, numberOfCards);
+  React.useEffect(() => {
+    setNumberOfCards(3);
+  }, [cards])
+  console.log(cards);
+  const arrayToShow = cards.slice(0, numberOfCards);
+  // tempArticles.slice(0, numberOfCards);
 
   const classNameListButton =
-    `list__button ${arrayToShow.length === tempArticles.length && 'list__button_invisible'}`;
+    `list__button ${arrayToShow.length === cards.length && 'list__button_invisible'}`;
 
   return (
     <div className="list content">
@@ -18,7 +23,7 @@ function NewsCardList({ isLoggedIn, isTypeSavedCards }) {
       <ul className="list__cards">
         {arrayToShow.map((item) =>
           <NewsCard
-            key={item._id}
+            key={item.title.slice(0, 10) + Math.floor(Math.random() * 1000000)}
             card={item}
             isLoggedin={isLoggedIn}
             isTypeSavedCards={isTypeSavedCards}

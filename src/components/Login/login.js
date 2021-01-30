@@ -3,11 +3,23 @@ import PopupWithForm from '../PopupWithForm/popupWithForm.js';
 import useFormValidation from '../../utils/useFormValidation.js';
 
 function Login({ isOpen, onClose, onSubmit, onRedirect, errorText }) {
+  const [data, setData] = React.useState({});
+
+
   const validator = useFormValidation();
+
   const handleChange = (e) => {
     validator.handleChange(e);
-    console.log(validator.errors);
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+    // console.log(validator.errors);
+    // console.log(e.target);
   }
+
+  const handleSubmit = ((evt) => {
+    evt.preventDefault();
+    onSubmit(data);
+  })
 
   return (
     <PopupWithForm
@@ -18,7 +30,7 @@ function Login({ isOpen, onClose, onSubmit, onRedirect, errorText }) {
       onRedirect={onRedirect}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       errorText={errorText}
       isValid={validator.isValid}>
       <p className="popup__input-title">Email</p>

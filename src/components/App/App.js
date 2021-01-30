@@ -17,6 +17,8 @@ import Preloader from '../Preloader/preloader.js';
 import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
 
 import search from '../../utils/newsApi.js';
+import convertNewsObj from '../../utils/convertNewsObj';
+import { register, login, checkToken } from '../../utils/mainApi.js';
 
 
 
@@ -29,10 +31,10 @@ function App() {
   const [showRegister, setShowRegister] = React.useState(false);
   const [showInfo, setShowInfo] = React.useState(false);
   const [showPreloader, setShowPreloader] = React.useState(false);
-  const [isSomethingFound, setIsSomethingFound] = React.useState(true);
+  const [isSomethingFound, setIsSomethingFound] = React.useState(false);
   const [hasUserPressedSearchOnce, setHasUserPressedSearchOnce] = React.useState(false);
   const [errorText, setErrorText] = React.useState('Это текст ошибки с сервера');
-
+  const [news, setNews] = React.useState([]);
   document.addEventListener('keyup', (evt) => {
     if (evt.code === 'Escape') {
       closeAllPopups();
@@ -40,10 +42,15 @@ function App() {
   })
   React.useEffect(() => {
     setScreenWidth(window.innerWidth);
+    setNews(JSON.parse(localStorage.getItem('news')) || []);
+    if (news.length > 0) {
+      setIsSomethingFound(true);
+    }
+    console.log(JSON.parse(localStorage.getItem('news')));
     window.addEventListener('resize', () => {
       setScreenWidth(window.innerWidth);
     })
-  }, []);
+  }, [news.length]);
 
 
   function handleSubmitSearch(evt, keyWord) {
@@ -52,16 +59,25 @@ function App() {
     setShowPreloader(true);
     search(keyWord)
       .then((res) => {
-        console.log(res);
+        // console.log(res.articles);
+        const articlesNewArray = res.articles.map(item => convertNewsObj(item, keyWord));
+        // console.log(articlesNewArray);
+        localStorage.setItem('news', JSON.stringify(articlesNewArray));
+        setNews(articlesNewArray);
+        setShowPreloader(false);
+        if (res.articles.length === 0) {
+          setIsSomethingFound(false);
+        }
+        setHasUserPressedSearchOnce(true);
       })
       .catch((err) => {
         console.log(err);
       })
-    setTimeout(() => {
-      setIsSomethingFound(Math.random() > .5);
-      setHasUserPressedSearchOnce(true);
-      setShowPreloader(false);
-    }, 1000)
+    // setTimeout(() => {
+    //   setIsSomethingFound(Math.random() > .5);
+    //   setHasUserPressedSearchOnce(true);
+    //   setShowPreloader(false);
+    // }, 1000)
 
   }
 
@@ -88,23 +104,33 @@ function App() {
     openRegisterPopup();
   }
 
-  function handleRegister(evt) {
-    evt.preventDefault();
+  function handleRegister(data) {
     // логика регистрации пользователя
-    let rand = Math.floor(Math.random() * 10);
-    if (rand > 5) {
-      closeAllPopups();
-      setShowInfo(true);
-    } else {
-      setErrorText('Регистр. если случ.число  =' + rand + '=  окажется больше 5');
-    }
+    // запрос к апи и тд
+    console.log(data);
+    register(data)
+      .then((res) => {
+        console.log(res);
+        closeAllPopups();
+        setShowInfo(true);
+        setErrorText('');
+      })
+      .catch((err) => {
+        err.json()
+          .then((err) => {
+            console.log(`Ошибка: ${err.message}`);
+            setErrorText(`Ошибка: ${err.message}`);
+          })
+          .catch((err) => {
+            console.log('Error object could not be parsed...');
+          })
+      })
+
   }
 
-  function handleLogin(evt) {
-    evt.preventDefault();
+  function handleLogin(data) {
     // логика авторизации
-    setCurrentUser(Math.random() > .5 ? { name: 'Дональд' } : { name: 'Джо' });
-    console.log('ki-Login');
+
     closeAllPopups();
     setIsLoggedIn(true);
   }
@@ -126,9 +152,9 @@ function App() {
             isBlackText={false}
             handleClick={isLoggedIn ? handleLogout : openLoginPopup} />
           <Main onSubmit={handleSubmitSearch} />
-          {hasUserPressedSearchOnce &&
+          {(hasUserPressedSearchOnce || news.length > 0) &&
             (isSomethingFound ?
-              <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={false} /> :
+              <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={false} cards={news} /> :
               <NotFoundBox />
             )
           }
