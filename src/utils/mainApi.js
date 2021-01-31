@@ -37,7 +37,7 @@ const login = ({ email, password }) => {
       if (res.ok) {
         return res.json()
       } else {
-        return Promise.reject(`Ошибка  ${res.status}`)
+        return Promise.reject(res);
       }
     })
 }
@@ -57,7 +57,7 @@ const checkToken = () => {
         if (res.ok) {
           return res.json()
         } else {
-          return Promise.reject(`Ошибка  ${res.status}`)
+          return Promise.reject(res)
         }
       })
   } else {
@@ -65,9 +65,70 @@ const checkToken = () => {
   }
 
 }
+const getArticles = ((token) => {
+
+  return fetch(`${MY_API_URL}/articles`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        return Promise.reject(res)
+      }
+    })
+})
+// добавление статьи
+const addArticle = ((token, card) => {
+  console.log(card);
+  return fetch(`${MY_API_URL}/articles`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(card)
+
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        return Promise.reject(res)
+      }
+    })
+})
+//удаление статьи
+// const deleteArticle = ((token) => {
+
+//   return fetch(`${MY_API_URL}/articles`, {
+//     method: 'DELETE',
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Authorization": `Bearer ${token}`
+//     }
+
+//   })
+//     .then((res) => {
+//       if (res.ok) {
+//         return res.json()
+//       } else {
+//         return Promise.reject(res)
+//       }
+//     })
+// })
+
 
 export {
   register,
   login,
-  checkToken
+  checkToken,
+  getArticles,
+  addArticle,
+  // deleteArticle
 }

@@ -6,7 +6,7 @@ import trashBinPath from '../../images/trash.svg';
 import cutString from '../../utils/cutString.js'
 import cutStringFine from '../../utils/cutStringFine.js';
 
-function NewsCard({ keyy, card, isLoggedIn, isTypeSavedCards }) {
+function NewsCard({ card, isLoggedIn, isTypeSavedCards, onAddArticle }) {
   const [isMarked, setIsMarked] = React.useState(false);
   const textFieldRef = React.useRef();
   const [textLength, setTextLength] = React.useState(300)
@@ -33,6 +33,7 @@ function NewsCard({ keyy, card, isLoggedIn, isTypeSavedCards }) {
   }, [textLength])
 
   const handleCardClick = (() => {
+    onAddArticle(card);
     // обращение к нашему АПИ и по результату ставим синий флажок
     // console.log(card._id);
     setIsMarked(!isMarked);

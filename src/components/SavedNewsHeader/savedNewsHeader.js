@@ -1,11 +1,11 @@
 import React from 'react';
-import tempArticles from '../../constants/tempArticles.js';
+// import tempArticles from '../../constants/tempArticles.js';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 
-function SavedNewsHeader({ isLoggedIn, isTypeSavedCards }) {
+function SavedNewsHeader({ cardsArray }) {
   const user = React.useContext(CurrentUserContext);
   // создаем из массива карточек массив ключевых слов и сортируем
-  const arrayOfKeywords = tempArticles.map((item) => item.keyword).sort();
+  const arrayOfKeywords = cardsArray.map((item) => item.keyword).sort();
   // создаем из массива ключевых слов массив с объектами вида{keyword: слово, number: 5}
   let num;
   let current = 0;

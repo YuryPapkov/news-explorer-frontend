@@ -2,7 +2,7 @@ import React from 'react';
 import NewsCard from '../NewsCard/newsCard.js';
 import tempArticles from '../../constants/tempArticles.js';
 
-function NewsCardList({ isLoggedIn, isTypeSavedCards, cards }) {
+function NewsCardList({ isLoggedIn, isTypeSavedCards, cards, onAddArticle }) {
   const [numberOfCards, setNumberOfCards] = React.useState(3);
   const increaseNumberOfCards = () => {
     setNumberOfCards(Math.min(numberOfCards + 3, cards.length));
@@ -27,6 +27,7 @@ function NewsCardList({ isLoggedIn, isTypeSavedCards, cards }) {
             card={item}
             isLoggedin={isLoggedIn}
             isTypeSavedCards={isTypeSavedCards}
+            onAddArticle={onAddArticle}
           />
         )}
 
