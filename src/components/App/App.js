@@ -15,15 +15,12 @@ import SavedNews from '../SavedNews/savedNews.js';
 import NotFoundBox from '../NotFoundBox/notFoundBox.js';
 import Preloader from '../Preloader/preloader.js';
 import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
-
 import search from '../../utils/newsApi.js';
 import convertNewsObj from '../../utils/convertNewsObj';
-import { register, login, checkToken, getArticles, addArticle } from '../../utils/mainApi.js';
-
-
+import { register, login, checkToken, getArticles, addArticle, deleteArticle } from '../../utils/mainApi.js';
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState({ name: 'Грета', email: 'greta@yandex.ru' });
+  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [screenWidth, setScreenWidth] = React.useState(1440);
@@ -36,11 +33,13 @@ function App() {
   const [errorText, setErrorText] = React.useState('');
   const [news, setNews] = React.useState([]);
   const [savedNews, setSavedNews] = React.useState([]);
+
   document.addEventListener('keyup', (evt) => {
     if (evt.code === 'Escape') {
       closeAllPopups();
     }
   })
+
   React.useEffect(() => {
     const token = localStorage.getItem('jwt');
     if (token) {
@@ -50,13 +49,11 @@ function App() {
           setIsLoggedIn(true);
           getArticles(token)
             .then((res) => {
-              console.log(res);
               setSavedNews(res.data);
             })
             .catch((err) => {
               console.log(err);
             })
-
         })
         .catch((err) => {
           console.log(err);
@@ -82,9 +79,7 @@ function App() {
     setShowPreloader(true);
     search(keyWord)
       .then((res) => {
-        // console.log(res.articles);
         const articlesNewArray = res.articles.map(item => convertNewsObj(item, keyWord));
-        // console.log(articlesNewArray);
         localStorage.setItem('news', JSON.stringify(articlesNewArray));
         setNews(articlesNewArray);
         setShowPreloader(false);
@@ -96,12 +91,6 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-    // setTimeout(() => {
-    //   setIsSomethingFound(Math.random() > .5);
-    //   setHasUserPressedSearchOnce(true);
-    //   setShowPreloader(false);
-    // }, 1000)
-
   }
 
   function openRegisterPopup() {
@@ -128,12 +117,11 @@ function App() {
     openRegisterPopup();
   }
 
+  // логика регистрации пользователя
   function handleRegister(data) {
-    // логика регистрации пользователя
     console.log(data);
     register(data)
       .then((res) => {
-        // console.log(res);
         closeAllPopups();
         setShowInfo(true);
       })
@@ -147,11 +135,10 @@ function App() {
             console.log('Error object could not be parsed...');
           })
       })
-
   }
 
+  // логика авторизации
   function handleLogin(data) {
-    // логика авторизации
     login(data)
       .then((res) => {
         localStorage.setItem('jwt', res.token);
@@ -192,13 +179,11 @@ function App() {
         } else {
           setErrorText('Что то пошло не так...');
         }
-
       })
-
   }
 
+  // логика выхода 
   function handleLogout() {
-    // логика выхода 
     localStorage.setItem('jwt', '');
     setCurrentUser({ name: '', email: '' });
     console.log('ki-Logout');
@@ -206,17 +191,41 @@ function App() {
     history.push('/');
   }
 
+  // добавление карточки
   function handleAddCard(card) {
-    // добавление карточки
     const token = localStorage.getItem('jwt');
     addArticle(token, card)
       .then((res) => {
+        getArticles(token)
+          .then((res) => {
+            setSavedNews(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       })
+  }
 
+  // удаление карточки
+  function handleDeleteCard(card) {
+    const token = localStorage.getItem('jwt');
+    deleteArticle(token, card)
+      .then((res) => {
+        getArticles(token)
+          .then((res) => {
+            setSavedNews(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return (
@@ -231,7 +240,7 @@ function App() {
           <Main onSubmit={handleSubmitSearch} />
           {(hasUserPressedSearchOnce || news.length > 0) &&
             (isSomethingFound ?
-              <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={false} cards={news} onAddArticle={handleAddCard} /> :
+              <NewsCardList isLoggedIn={isLoggedIn} isTypeSavedCards={false} cards={news} onButtonPress={handleAddCard} /> :
               <NotFoundBox />
             )
           }
@@ -243,6 +252,7 @@ function App() {
           isLoggedIn={isLoggedIn}
           handleLogout={handleLogout}
           cards={savedNews}
+          onButtonPress={handleDeleteCard}
           component={SavedNews}
         />
         <Footer screenWidth={screenWidth} />

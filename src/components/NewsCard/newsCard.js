@@ -6,7 +6,8 @@ import trashBinPath from '../../images/trash.svg';
 import cutString from '../../utils/cutString.js'
 import cutStringFine from '../../utils/cutStringFine.js';
 
-function NewsCard({ card, isLoggedIn, isTypeSavedCards, onAddArticle }) {
+const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress }) => {
+  console.log('render c');
   const [isMarked, setIsMarked] = React.useState(false);
   const textFieldRef = React.useRef();
   const [textLength, setTextLength] = React.useState(300)
@@ -16,7 +17,6 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards, onAddArticle }) {
     { 'card__button_type_main': !isTypeSavedCards }
   );
   React.useEffect(() => {
-    // console.log('ef_1', textFieldRef.current.scrollHeight, textFieldRef.current.clientHeight);
     setTextLength(Math.min(300, textFieldRef.current.innerHTML.length));
     textFieldRef.current.innerHTML = textFieldRef.current.innerHTML.slice(0, textLength);
   }, []);
@@ -24,19 +24,17 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards, onAddArticle }) {
     const scroll = textFieldRef.current.scrollHeight;
     const textHeight = textFieldRef.current.clientHeight;
     textFieldRef.current.innerHTML = cutString(scroll, textHeight, textFieldRef.current.innerHTML);
-    // console.log('text h= ', textHeight, 'text length=', textLength);
     if (scroll > textHeight && textHeight > 22) {
-      // console.log('ef_2_if', scroll, textHeight);
       setTextLength(textLength - 7);
       textFieldRef.current.innerHTML = cutStringFine(textFieldRef.current.innerHTML);
     }
   }, [textLength])
 
-  const handleCardClick = (() => {
-    onAddArticle(card);
-    // обращение к нашему АПИ и по результату ставим синий флажок
-    // console.log(card._id);
-    setIsMarked(!isMarked);
+  const handleButtonClick = (() => {
+    onButtonPress(card);
+    if (!isTypeSavedCards) {
+      setIsMarked(true);
+    }
   })
 
   return (
@@ -44,7 +42,7 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards, onAddArticle }) {
       <img className="card__image" src={card.image} alt={card.keyword} />
       <button
         className={buttonClasses}
-        onClick={handleCardClick} >
+        onClick={handleButtonClick} >
         <img src={isTypeSavedCards ? trashBinPath : (isMarked ? flagMarkedPath : flagPath)} alt='mark' />
       </button>
       { isTypeSavedCards && <p className="card__keyword">{card.keyword}</p>}
@@ -56,5 +54,5 @@ function NewsCard({ card, isLoggedIn, isTypeSavedCards, onAddArticle }) {
       <p className="card__source">{card.source}</p>
     </li >
   );
-}
+})
 export default NewsCard;

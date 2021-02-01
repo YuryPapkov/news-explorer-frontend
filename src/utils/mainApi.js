@@ -66,14 +66,12 @@ const checkToken = () => {
 
 }
 const getArticles = ((token) => {
-
   return fetch(`${MY_API_URL}/articles`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
     }
-
   })
     .then((res) => {
       if (res.ok) {
@@ -104,25 +102,24 @@ const addArticle = ((token, card) => {
     })
 })
 //удаление статьи
-// const deleteArticle = ((token) => {
+const deleteArticle = ((token, card) => {
 
-//   return fetch(`${MY_API_URL}/articles`, {
-//     method: 'DELETE',
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Authorization": `Bearer ${token}`
-//     }
+  return fetch(`${MY_API_URL}/articles/${card._id}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
 
-//   })
-//     .then((res) => {
-//       if (res.ok) {
-//         return res.json()
-//       } else {
-//         return Promise.reject(res)
-//       }
-//     })
-// })
-
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        return Promise.reject(res)
+      }
+    })
+})
 
 export {
   register,
@@ -130,5 +127,5 @@ export {
   checkToken,
   getArticles,
   addArticle,
-  // deleteArticle
+  deleteArticle
 }

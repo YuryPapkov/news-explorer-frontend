@@ -1,5 +1,4 @@
 import React from 'react';
-// import tempArticles from '../../constants/tempArticles.js';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 
 function SavedNewsHeader({ cardsArray }) {
@@ -50,22 +49,10 @@ function SavedNewsHeader({ cardsArray }) {
       phraseSpan = `${arrayOfObjKeywords[0].keyword}, ${arrayOfObjKeywords[1].keyword} и ${numberOfKeywords - 2}-м другим`;
       break;
 
-
     default:
       phraseStart = '';
       phraseSpan = '';
   }
-
-
-  // const [numberOfCards, setNumberOfCards] = React.useState(3);
-
-  // const increaseNumberOfCards = () => {
-  //   setNumberOfCards(Math.min(numberOfCards + 3, tempArticles.length));
-  // }
-  // const arrayToShow = tempArticles.slice(0, numberOfCards);
-
-  // const classNameListButton =
-  //   `list__button ${arrayToShow.length === tempArticles.length && 'list__button_invisible'} `;
 
   return (
     <div className="sn-header">
@@ -75,4 +62,5 @@ function SavedNewsHeader({ cardsArray }) {
     </div>
   );
 }
+
 export default SavedNewsHeader;
