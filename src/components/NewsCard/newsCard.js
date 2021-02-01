@@ -7,7 +7,6 @@ import cutString from '../../utils/cutString.js'
 import cutStringFine from '../../utils/cutStringFine.js';
 
 const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress }) => {
-  console.log('render c');
   const [isMarked, setIsMarked] = React.useState(false);
   const textFieldRef = React.useRef();
   const [textLength, setTextLength] = React.useState(300)
@@ -19,7 +18,7 @@ const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress
   React.useEffect(() => {
     setTextLength(Math.min(300, textFieldRef.current.innerHTML.length));
     textFieldRef.current.innerHTML = textFieldRef.current.innerHTML.slice(0, textLength);
-  }, []);
+  }, [textLength]);
   React.useEffect(() => {
     const scroll = textFieldRef.current.scrollHeight;
     const textHeight = textFieldRef.current.clientHeight;
@@ -27,6 +26,7 @@ const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress
     if (scroll > textHeight && textHeight > 22) {
       setTextLength(textLength - 7);
       textFieldRef.current.innerHTML = cutStringFine(textFieldRef.current.innerHTML);
+      // console.log(scroll, textHeight);
     }
   }, [textLength])
 

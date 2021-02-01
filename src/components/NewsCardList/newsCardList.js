@@ -9,7 +9,6 @@ function NewsCardList({ isLoggedIn, isTypeSavedCards, cards, onButtonPress }) {
   React.useEffect(() => {
     isTypeSavedCards ? setNumberOfCards(cards.length) : setNumberOfCards(3);
   }, [cards, isTypeSavedCards])
-  console.log(cards);
   const arrayToShow = cards.slice(0, numberOfCards);
 
   const classNameListButton =

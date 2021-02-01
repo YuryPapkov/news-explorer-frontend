@@ -101,6 +101,7 @@
 .card__button_type_main::before {
   content: 'Войдите, чтобы сохранять статьи';
   font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 12px;
 }
 
 @media(max-width:1000px) {
@@ -113,6 +114,7 @@
 .card__button_type_saved-cards::before {
   content: 'Убрать из сохраненных';
   font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 12px;
 }
 
 @media(max-width:1000px) {

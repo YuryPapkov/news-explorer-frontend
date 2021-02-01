@@ -66,7 +66,6 @@ function App() {
     if (news.length > 0) {
       setIsSomethingFound(true);
     }
-    console.log(JSON.parse(localStorage.getItem('news')));
     window.addEventListener('resize', () => {
       setScreenWidth(window.innerWidth);
     })
@@ -75,7 +74,6 @@ function App() {
 
   function handleSubmitSearch(evt, keyWord) {
     evt.preventDefault();
-    console.log(evt, keyWord);
     setShowPreloader(true);
     search(keyWord)
       .then((res) => {

@@ -26,7 +26,10 @@ export default function convertNewsObj(newsObj, keyWord) {
       break;
     default: month = "декабря,";
   }
-  let date = (newsObj.publishedAt.slice(8, 9) !== '0' && newsObj.publishedAt.slice(8, 9)) + newsObj.publishedAt.slice(9, 10);
+  let date = ((newsObj.publishedAt.slice(8, 9) === '0') ?
+    newsObj.publishedAt.slice(9, 10)
+    : newsObj.publishedAt.slice(8, 10)
+  );
 
   const dateFormatted = date + ' ' + month + ' ' + newsObj.publishedAt.slice(0, 4)
   const modifiedNewsObj = {
