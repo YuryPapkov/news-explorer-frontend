@@ -31,7 +31,6 @@ function SavedNewsHeader({ cardsArray }) {
     }
     return 0;
   });
-  console.log(arrayOfObjKeywords);
   // конструируем фразу в зависимости от количества ключевых слов
   let phraseStart = '';
   let phraseSpan = '';

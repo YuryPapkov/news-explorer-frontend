@@ -12,14 +12,20 @@ function Login({ isOpen, onClose, onSubmit, onRedirect, errorText }) {
     validator.handleChange(e);
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-    // console.log(validator.errors);
-    // console.log(e.target);
   }
 
   const handleSubmit = ((evt) => {
     evt.preventDefault();
-    onSubmit(data);
+    if (validator.isValid) {
+      onSubmit(data);
+    }
   })
+
+  const handleClosePopup = (() => {
+    validator.resetForm();
+    onClose();
+  })
+
 
   return (
     <PopupWithForm
@@ -29,7 +35,7 @@ function Login({ isOpen, onClose, onSubmit, onRedirect, errorText }) {
       redirectText='Зарегистрироваться'
       onRedirect={onRedirect}
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClosePopup}
       onSubmit={handleSubmit}
       errorText={errorText}
       isValid={validator.isValid}>

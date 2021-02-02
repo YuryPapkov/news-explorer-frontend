@@ -22,7 +22,7 @@ function NewsCardList({ isLoggedIn, isTypeSavedCards, cards, onButtonPress }) {
           <NewsCard
             key={item._id}
             card={item}
-            isLoggedin={isLoggedIn}
+            isLoggedIn={isLoggedIn}
             isTypeSavedCards={isTypeSavedCards}
             onButtonPress={onButtonPress}
           />

@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import flagPath from '../../images/flag.svg';
+import flagActivePath from '../../images/flag-hover.svg';
 import flagMarkedPath from '../../images/flag-marked.svg';
 import trashBinPath from '../../images/trash.svg';
 import cutString from '../../utils/cutString.js'
@@ -9,11 +10,12 @@ import cutStringFine from '../../utils/cutStringFine.js';
 const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress }) => {
   const [isMarked, setIsMarked] = React.useState(false);
   const textFieldRef = React.useRef();
-  const [textLength, setTextLength] = React.useState(300)
+  const [textLength, setTextLength] = React.useState(300);
+  const [showInfoMessage, setShowInfoMessage] = React.useState(false);
   const buttonClasses = classNames(
     'card__button',
     { 'card__button_type_saved-cards': isTypeSavedCards },
-    { 'card__button_type_main': !isTypeSavedCards }
+    { 'card__button_type_main': !isTypeSavedCards },
   );
   React.useEffect(() => {
     setTextLength(Math.min(300, textFieldRef.current.innerHTML.length));
@@ -30,12 +32,24 @@ const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress
     }
   }, [textLength])
 
+  const resetInfoMessage = (() => {
+    setShowInfoMessage(false);
+  })
+
   const handleButtonClick = (() => {
-    onButtonPress(card);
-    if (!isTypeSavedCards) {
-      setIsMarked(true);
+    if (isLoggedIn) {
+      onButtonPress(card);
+      if (!isTypeSavedCards) {
+        setIsMarked(true);
+      }
+      // показать инфо, что надо войти
+    } else {
+      setShowInfoMessage(true);
+      setTimeout(resetInfoMessage, 2000);
     }
   })
+
+
 
   return (
     <li className="card">
@@ -43,8 +57,15 @@ const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress
       <button
         className={buttonClasses}
         onClick={handleButtonClick} >
-        <img src={isTypeSavedCards ? trashBinPath : (isMarked ? flagMarkedPath : flagPath)} alt='mark' />
+        <img src={
+          isTypeSavedCards ?
+            trashBinPath :
+            (isMarked ?
+              flagMarkedPath :
+              (isLoggedIn ? flagActivePath : flagPath)
+            )} alt='mark' />
       </button>
+      {showInfoMessage && <div className='card__info'>Войдите, чтобы сохранять статьи</div>}
       { isTypeSavedCards && <p className="card__keyword">{card.keyword}</p>}
       <div className="card__content-box">
         <p className=" card__date">{card.date}</p>

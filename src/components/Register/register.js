@@ -9,17 +9,19 @@ function Register({ isOpen, onClose, onRedirect, onSubmit, errorText }) {
     validator.handleChange(e);
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-    console.log(data);
-    // console.log(validator.errors);
-
   }
 
   const handleSubmit = ((evt) => {
     evt.preventDefault();
-    // console.log(data);
-    onSubmit(data);
+    if (validator.isValid) {
+      onSubmit(data);
+    }
   })
 
+  const handleClosePopup = (() => {
+    validator.resetForm();
+    onClose();
+  })
 
   return (
     <PopupWithForm
@@ -29,7 +31,7 @@ function Register({ isOpen, onClose, onRedirect, onSubmit, errorText }) {
       redirectText='Войти'
       onRedirect={onRedirect}
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClosePopup}
       onSubmit={handleSubmit}
       errorText={errorText}
       isValid={validator.isValid}>

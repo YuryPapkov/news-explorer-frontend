@@ -1,7 +1,6 @@
 const MY_API_URL = 'https://papkov-news.students.nomoreparties.xyz/api';
 
 const register = ({ email, password, name }) => {
-  console.log('main');
   return fetch(`${MY_API_URL}/signup`, {
     method: 'POST',
     headers: {
@@ -83,7 +82,6 @@ const getArticles = ((token) => {
 })
 // добавление статьи
 const addArticle = ((token, card) => {
-  console.log(card);
   return fetch(`${MY_API_URL}/articles`, {
     method: 'POST',
     headers: {

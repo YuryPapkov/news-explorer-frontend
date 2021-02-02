@@ -38,6 +38,31 @@
   }
 }
 
+.card__info {
+  padding: 0 10px;
+  border-radius: 5px;
+  position: absolute;
+  right: 70px;
+  top: 25px;
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  white-space: nowrap;
+  background-color: white;
+  transition: opacity .3s ease-in-out;
+  opacity: 1;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 12px;
+}
+
+@media(max-width:1000px) {
+  .card__info {
+    top: 5px;
+    right: 50px;
+    border-radius: 10px;
+  }
+}
+
 .card__button {
   position: absolute;
   top: 25px;
@@ -99,16 +124,8 @@
 }
 
 .card__button_type_main::before {
-  content: 'Войдите, чтобы сохранять статьи';
-  font-family: 'Roboto', 'Arial', sans-serif;
-  font-size: 12px;
-}
-
-@media(max-width:1000px) {
-  .card__button_type_main::before {
-    content: '';
-    height: 0;
-  }
+  width: 0;
+  height: 0;
 }
 
 .card__button_type_saved-cards::before {

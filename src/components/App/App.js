@@ -18,6 +18,7 @@ import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
 import search from '../../utils/newsApi.js';
 import convertNewsObj from '../../utils/convertNewsObj';
 import { register, login, checkToken, getArticles, addArticle, deleteArticle } from '../../utils/mainApi.js';
+// import useFormValidation from '../../utils/useFormValidation.js';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
@@ -33,6 +34,7 @@ function App() {
   const [errorText, setErrorText] = React.useState('');
   const [news, setNews] = React.useState([]);
   const [savedNews, setSavedNews] = React.useState([]);
+  // const validator = useFormValidation();
 
   document.addEventListener('keyup', (evt) => {
     if (evt.code === 'Escape') {
@@ -103,6 +105,7 @@ function App() {
     setShowRegister(false);
     setShowInfo(false);
     setErrorText('');
+    // console.log(validator.resetForm);
   }
 
   function redirectToLogin() {
@@ -142,7 +145,6 @@ function App() {
         localStorage.setItem('jwt', res.token);
         getArticles(res.token)
           .then((res) => {
-            console.log(res);
             setSavedNews(res.data);
           })
           .catch((err) => {
@@ -153,7 +155,6 @@ function App() {
       .then((res) => {
         checkToken(res)
           .then((res) => {
-            console.log(res.data.name);
             setCurrentUser({ name: res.data.name, email: res.data.email });
             setIsLoggedIn(true);
             closeAllPopups();
@@ -184,7 +185,6 @@ function App() {
   function handleLogout() {
     localStorage.setItem('jwt', '');
     setCurrentUser({ name: '', email: '' });
-    console.log('ki-Logout');
     setIsLoggedIn(false);
     history.push('/');
   }
@@ -201,7 +201,6 @@ function App() {
           .catch((err) => {
             console.log(err);
           })
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
