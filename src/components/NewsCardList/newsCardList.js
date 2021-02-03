@@ -1,13 +1,14 @@
 import React from 'react';
 import NewsCard from '../NewsCard/newsCard.js';
+import { NUMBER_OF_ARTICLES_IN_PACKAGE } from '../../constants/listConst.js';
 
 function NewsCardList({ isLoggedIn, isTypeSavedCards, cards, onButtonPress }) {
-  const [numberOfCards, setNumberOfCards] = React.useState(3);
+  const [numberOfCards, setNumberOfCards] = React.useState(NUMBER_OF_ARTICLES_IN_PACKAGE);
   const increaseNumberOfCards = () => {
-    setNumberOfCards(Math.min(numberOfCards + 3, cards.length));
+    setNumberOfCards(Math.min(numberOfCards + NUMBER_OF_ARTICLES_IN_PACKAGE, cards.length));
   }
   React.useEffect(() => {
-    isTypeSavedCards ? setNumberOfCards(cards.length) : setNumberOfCards(3);
+    isTypeSavedCards ? setNumberOfCards(cards.length) : setNumberOfCards(NUMBER_OF_ARTICLES_IN_PACKAGE);
   }, [cards, isTypeSavedCards])
   const arrayToShow = cards.slice(0, numberOfCards);
 

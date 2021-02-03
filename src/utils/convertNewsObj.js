@@ -33,6 +33,8 @@ export default function convertNewsObj(newsObj, keyWord) {
 
   const dateFormatted = date + ' ' + month + ' ' + newsObj.publishedAt.slice(0, 4)
   const modifiedNewsObj = {
+    '_id': newsObj.description.slice(0, 10) + Math.floor(Math.random() * 10000),
+    'isMarked': false,
     'keyword': keyWord,
     'title': newsObj.title,
     'text': newsObj.description,

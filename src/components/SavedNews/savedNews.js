@@ -4,7 +4,6 @@ import SavedNewsHeader from '../SavedNewsHeader/savedNewsHeader.js';
 import NewsCardList from '../NewsCardList/newsCardList.js';
 
 function SavedNews({ screenWidth, isLoggedIn, handleLogout, cards, onButtonPress }) {
-
   return (
     <div>
       <Header screenWidth={screenWidth} isLoggedIn={true} isBlackText={true} handleClick={handleLogout} />

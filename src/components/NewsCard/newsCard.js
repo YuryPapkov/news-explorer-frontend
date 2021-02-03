@@ -8,7 +8,7 @@ import cutString from '../../utils/cutString.js'
 import cutStringFine from '../../utils/cutStringFine.js';
 
 const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress }) => {
-  const [isMarked, setIsMarked] = React.useState(false);
+  // const [isMarked, setIsMarked] = React.useState(false);
   const textFieldRef = React.useRef();
   const [textLength, setTextLength] = React.useState(300);
   const [showInfoMessage, setShowInfoMessage] = React.useState(false);
@@ -28,7 +28,6 @@ const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress
     if (scroll > textHeight && textHeight > 22) {
       setTextLength(textLength - 7);
       textFieldRef.current.innerHTML = cutStringFine(textFieldRef.current.innerHTML);
-      // console.log(scroll, textHeight);
     }
   }, [textLength])
 
@@ -39,11 +38,8 @@ const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress
   const handleButtonClick = (() => {
     if (isLoggedIn) {
       onButtonPress(card);
-      if (!isTypeSavedCards) {
-        setIsMarked(true);
-      }
-      // показать инфо, что надо войти
     } else {
+      // показать инфо, что надо войти
       setShowInfoMessage(true);
       setTimeout(resetInfoMessage, 2000);
     }
@@ -60,7 +56,7 @@ const NewsCard = React.memo(({ card, isLoggedIn, isTypeSavedCards, onButtonPress
         <img src={
           isTypeSavedCards ?
             trashBinPath :
-            (isMarked ?
+            (card.isMarked ?
               flagMarkedPath :
               (isLoggedIn ? flagActivePath : flagPath)
             )} alt='mark' />

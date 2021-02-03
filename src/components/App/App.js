@@ -18,7 +18,6 @@ import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
 import search from '../../utils/newsApi.js';
 import convertNewsObj from '../../utils/convertNewsObj';
 import { register, login, checkToken, getArticles, addArticle, deleteArticle } from '../../utils/mainApi.js';
-// import useFormValidation from '../../utils/useFormValidation.js';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
@@ -34,7 +33,6 @@ function App() {
   const [errorText, setErrorText] = React.useState('');
   const [news, setNews] = React.useState([]);
   const [savedNews, setSavedNews] = React.useState([]);
-  // const validator = useFormValidation();
 
   document.addEventListener('keyup', (evt) => {
     if (evt.code === 'Escape') {
@@ -44,6 +42,13 @@ function App() {
 
   React.useEffect(() => {
     const token = localStorage.getItem('jwt');
+    // тут пока затык с открытием модального окна логина при редиректе неавторизованного
+    // пользователя из saved-news (почему то перезагружается страница, а не редирект происходит)
+    // history.listen((location) => {
+    //   if (history.location.state) {  //тут в нашем случае state или null или какой то
+    //     setShowLogin(true);
+    //   }
+    // })
     if (token) {
       checkToken(token)
         .then((res) => {
@@ -73,6 +78,9 @@ function App() {
     })
   }, [news.length]);
 
+  function refreshNewsInLocalStorage() {
+    localStorage.setItem('news', JSON.stringify(news));
+  }
 
   function handleSubmitSearch(evt, keyWord) {
     evt.preventDefault();
@@ -90,6 +98,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setShowPreloader(false);
       })
   }
 
@@ -100,12 +109,12 @@ function App() {
   function openLoginPopup() {
     setShowLogin(true);
   }
+
   function closeAllPopups() {
     setShowLogin(false);
     setShowRegister(false);
     setShowInfo(false);
     setErrorText('');
-    // console.log(validator.resetForm);
   }
 
   function redirectToLogin() {
@@ -192,8 +201,15 @@ function App() {
   // добавление карточки
   function handleAddCard(card) {
     const token = localStorage.getItem('jwt');
-    addArticle(token, card)
+    const cardToAdd = Object.assign({}, card);
+
+    delete cardToAdd._id;
+    delete cardToAdd.isMarked;
+
+    addArticle(token, cardToAdd)
       .then((res) => {
+        card.isMarked = true;
+        refreshNewsInLocalStorage();
         getArticles(token)
           .then((res) => {
             setSavedNews(res.data);
