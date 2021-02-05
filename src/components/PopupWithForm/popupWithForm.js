@@ -15,12 +15,6 @@ function PopupWithForm({
   children }) {
   const classNameForm = `popup ${isOpen && 'popup_opened'}`;
   const classNameSubmitButton = `popup__save-button ${isValid && 'popup__save-button_active'}`;
-  // const classNameOverlay = `popup__overlay ${isOpen && 'popup__overlay_opened'}`;
-
-  // React.useEffect(() => {
-  //   document.querySelector('.popup__overlay').addEventListener('click', onClose);
-  //   // console.log(document.querySelector('.popup__overlay'));
-  // }, [isOpen, onClose]);
 
   return (
     <div className={classNameForm}>
