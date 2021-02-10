@@ -1,4 +1,5 @@
 const MY_API_URL = 'https://papkov-news.students.nomoreparties.xyz/api';
+// const MY_API_URL = 'https://84.201.171.108/api';
 
 const register = ({ email, password, name }) => {
   return fetch(`${MY_API_URL}/signup`, {

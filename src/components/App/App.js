@@ -18,8 +18,10 @@ import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
 import search from '../../utils/newsApi.js';
 import convertNewsObj from '../../utils/convertNewsObj';
 import { register, login, checkToken, getArticles, addArticle, deleteArticle } from '../../utils/mainApi.js';
+import { connect } from 'react-redux';
+import { setUser, resetUser, saveToken, deleteToken, setNews } from '../../actions/index.js';
 
-function App() {
+function App(props) {
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -39,7 +41,7 @@ function App() {
       closeAllPopups();
     }
   })
-
+  console.log(props);
   React.useEffect(() => {
     const token = localStorage.getItem('jwt');
     // тут пока затык с открытием модального окна логина при редиректе неавторизованного
@@ -88,7 +90,8 @@ function App() {
     search(keyWord)
       .then((res) => {
         const articlesNewArray = res.articles.map(item => convertNewsObj(item, keyWord));
-        localStorage.setItem('news', JSON.stringify(articlesNewArray));
+        // localStorage.setItem('news', JSON.stringify(articlesNewArray));
+        props.setNews(articlesNewArray); //redux store
         setNews(articlesNewArray);
         setShowPreloader(false);
         if (res.articles.length === 0) {
@@ -152,6 +155,8 @@ function App() {
     login(data)
       .then((res) => {
         localStorage.setItem('jwt', res.token);
+        props.saveToken(res.token); //redux store
+        console.log(props.state);
         getArticles(res.token)
           .then((res) => {
             setSavedNews(res.data);
@@ -193,6 +198,7 @@ function App() {
   // логика выхода 
   function handleLogout() {
     localStorage.setItem('jwt', '');
+    props.deleteToken(); //redux store
     setCurrentUser({ name: '', email: '' });
     setIsLoggedIn(false);
     history.push('/');
@@ -294,4 +300,18 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  curUser: state.user,
+  curToken: state.token,
+  curNews: state.news
+})
+
+const mapDispatchToProps = dispatch => ({
+  setUser: userData => dispatch(setUser(userData)),
+  resetUser: () => dispatch(resetUser()),
+  saveToken: token => dispatch(saveToken(token)),
+  deleteToken: () => dispatch(deleteToken()),
+  setNews: (news) => dispatch(setNews(news))
+})
+
+export default (connect(mapStateToProps, mapDispatchToProps))(App);
