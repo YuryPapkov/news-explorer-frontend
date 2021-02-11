@@ -1,25 +1,47 @@
+// import axios from 'axios';
+import { create } from 'apisauce'
 const MY_API_URL = 'https://papkov-news.students.nomoreparties.xyz/api';
 
+// define the api
+const api = create({
+  baseURL: MY_API_URL,
+  headers: { "Content-Type": "application/json" },
+});
+
 const register = ({ email, password, name }) => {
-  return fetch(`${MY_API_URL}/signup`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-      name: name
-    })
-  })
+  return api.post('/signup', { email: email, password: password, name: name })
     .then((res) => {
       if (res.ok) {
-        return res.json()
+        console.log(res);
+        return res.data;
       } else {
-        return Promise.reject(res);
+        console.log(res.data);
+        return Promise.reject(res.data);
       }
     })
 }
+
+
+// const register = ({ email, password, name }) => {
+//   return fetch(`${MY_API_URL}/signup`, {
+//     method: 'POST',
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       email: email,
+//       password: password,
+//       name: name
+//     })
+//   })
+//     .then((res) => {
+//       if (res.ok) {
+//         return res.json()
+//       } else {
+//         return Promise.reject(res);
+//       }
+//     })
+// }
 
 const login = ({ email, password }) => {
   return fetch(`${MY_API_URL}/signin`, {

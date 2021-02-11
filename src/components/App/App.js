@@ -128,15 +128,18 @@ function App(props) {
         setShowInfo(true);
       })
       .catch((err) => {
-        err.json()
-          .then((err) => {
-            console.log(`Ошибка: ${err.message}`);
-            setErrorText(`Ошибка: ${err.message}`);
-          })
-          .catch((err) => {
-            console.log('Error object could not be parsed...');
-          })
+        console.log(`Ошибка: ${err.message}`);
+        setErrorText(`Ошибка: ${err.message}`);
+
       })
+    // .catch((err) => {
+    //   err.json()
+    //     .then((err) => {
+    //     })
+    //     .catch((err) => {
+    //       console.log('Error object could not be parsed...');
+    //     })
+    // })
   }
 
   // логика авторизации
