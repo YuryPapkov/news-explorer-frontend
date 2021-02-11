@@ -1,8 +1,7 @@
 import React from 'react';
-import CurrentUserContext from '../../contexts/CurrentUserContext.js';
+import { connect } from 'react-redux';
 
-function SavedNewsHeader({ cardsArray }) {
-  const user = React.useContext(CurrentUserContext);
+function SavedNewsHeader({ cardsArray, curUser }) {
   // создаем из массива карточек массив ключевых слов и сортируем
   const arrayOfKeywords = cardsArray.map((item) => item.keyword).sort();
   // создаем из массива ключевых слов массив с объектами вида{keyword: слово, number: 5}
@@ -56,10 +55,14 @@ function SavedNewsHeader({ cardsArray }) {
   return (
     <div className="sn-header">
       <h2 className="sn-header__title">Сохраненные статьи</h2>
-      <p className="sn-header__info">{user.name}, у Вас {arrayOfKeywords.length}<br /> сохраненных статей </p>
+      <p className="sn-header__info">{curUser.name}, у Вас {arrayOfKeywords.length}<br /> сохраненных статей </p>
       <p className="sn-header__subtitle">{phraseStart}<span className="sn-header__span">{phraseSpan}</span></p>
     </div>
   );
 }
 
-export default SavedNewsHeader;
+const mapStateToProps = state => ({
+  curUser: state.user
+})
+
+export default (connect(mapStateToProps))(SavedNewsHeader);

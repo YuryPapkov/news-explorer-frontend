@@ -1,5 +1,4 @@
 const MY_API_URL = 'https://papkov-news.students.nomoreparties.xyz/api';
-// const MY_API_URL = 'https://84.201.171.108/api';
 
 const register = ({ email, password, name }) => {
   return fetch(`${MY_API_URL}/signup`, {
@@ -42,8 +41,7 @@ const login = ({ email, password }) => {
     })
 }
 
-const checkToken = () => {
-  const token = localStorage.getItem('jwt');
+const checkToken = (token) => {
   if (token) {
     return fetch(`${MY_API_URL}/users/me`, {
       method: 'GET',

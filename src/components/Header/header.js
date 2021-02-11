@@ -1,5 +1,7 @@
 import React from 'react';
-import CurrentUserContext from '../../contexts/CurrentUserContext.js';
+// подключаем к Store
+import { connect } from 'react-redux';
+
 import Navigation from '../Navigation/navigation.js';
 import logoutPath from '../../images/logout.svg';
 import logoutWhitePath from '../../images/logout-white.svg';
@@ -7,13 +9,10 @@ import mobMenuPath from '../../images/mob_menu.svg';
 import mobClosePath from '../../images/mob_close.svg';
 import mobMenuBlackPath from '../../images/mob_menu_black.svg';
 
-function Header({ screenWidth, isLoggedIn, isBlackText, handleClick }) {
-  const currentUser = React.useContext(CurrentUserContext);
+function Header({ screenWidth, isLoggedIn, isBlackText, handleClick, curUser }) {
   const [isCompact, setIsCompact] = React.useState(true);
   const darkTextColor = isBlackText ? { color: 'black', backgroundColor: 'white' } : {};
   const greyBackgroundAndOpened = isCompact ? {} : { height: 'auto', backgroundColor: '#1a1b22', color: 'white' };
-
-
 
   function handleMenuToggle() {
     setIsCompact(!isCompact);
@@ -31,7 +30,7 @@ function Header({ screenWidth, isLoggedIn, isBlackText, handleClick }) {
             <Navigation isLoggedIn={isLoggedIn} />
             {isLoggedIn ?
               <button className="header__button" onClick={handleClick}>
-                {currentUser.name}
+                {curUser.name}
                 <span>&nbsp;</span>
                 <img src={isBlackText ? logoutPath : logoutWhitePath} alt="выйти" />
               </button>
@@ -63,7 +62,7 @@ function Header({ screenWidth, isLoggedIn, isBlackText, handleClick }) {
             <Navigation isLoggedIn={isLoggedIn} onClick={resetMenu} />
             {isLoggedIn ?
               <button className="header__button" onClick={handleClick}>
-                {currentUser.name}
+                {curUser.name}
                 <span>&nbsp;</span>
                 <img src={!isBlackText || !isCompact ? logoutWhitePath : logoutPath} alt="выйти" />
               </button>
@@ -76,4 +75,8 @@ function Header({ screenWidth, isLoggedIn, isBlackText, handleClick }) {
     )
   }
 }
-export default Header;
+
+const mapStateToProps = state => ({
+  curUser: state.user,
+})
+export default (connect(mapStateToProps))(Header);

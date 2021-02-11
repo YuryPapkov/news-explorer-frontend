@@ -19,7 +19,7 @@ const userReducer = (state = initialState, action) => {
         email: ''
       }
     default:
-      return initialState;
+      return state;
   }
 }
 

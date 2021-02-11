@@ -8,11 +8,11 @@ const tokenReducer = (state = initialState, action) => {
       return action.payload
     }
     case DELETE_TOKEN: {
-      return []
+      return '';
     }
 
     default:
-      return initialState;
+      return state;
   }
 }
 

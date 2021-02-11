@@ -13,7 +13,7 @@ export const deleteToken = () => {
   }
 }
 
-export const setUser = (name, email) => {
+export const setUser = ({ name, email }) => {
   return {
     type: SET_USER,
     payload: {
