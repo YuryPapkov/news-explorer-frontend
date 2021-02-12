@@ -1,8 +1,6 @@
-// import axios from 'axios';
 import { create } from 'apisauce'
 const MY_API_URL = 'https://papkov-news.students.nomoreparties.xyz/api';
 
-// define the api
 const api = create({
   baseURL: MY_API_URL,
   headers: { "Content-Type": "application/json" },
@@ -21,63 +19,29 @@ const register = ({ email, password, name }) => {
     })
 }
 
-
-// const register = ({ email, password, name }) => {
-//   return fetch(`${MY_API_URL}/signup`, {
-//     method: 'POST',
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       email: email,
-//       password: password,
-//       name: name
-//     })
-//   })
-//     .then((res) => {
-//       if (res.ok) {
-//         return res.json()
-//       } else {
-//         return Promise.reject(res);
-//       }
-//     })
-// }
-
 const login = ({ email, password }) => {
-  return fetch(`${MY_API_URL}/signin`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password
-    })
-  })
+  return api.post('/signin', { email: email, password: password })
     .then((res) => {
       if (res.ok) {
-        return res.json()
+        console.log(res);
+        return res.data;
       } else {
-        return Promise.reject(res);
+        console.log(res.data);
+        return Promise.reject(res.data);
       }
     })
 }
 
 const checkToken = (token) => {
   if (token) {
-    return fetch(`${MY_API_URL}/users/me`, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-
-    })
+    return api.get('/users/me', {}, { headers: { "Authorization": `Bearer ${token}` } })
       .then((res) => {
+        console.log(res);
         if (res.ok) {
-          return res.json()
+          console.log(res.data)
+          return res.data
         } else {
-          return Promise.reject(res)
+          return Promise.reject(res.data)
         }
       })
   } else {
@@ -86,56 +50,42 @@ const checkToken = (token) => {
 
 }
 const getArticles = ((token) => {
-  return fetch(`${MY_API_URL}/articles`, {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-  })
+  return api.get('/articles', {}, { headers: { "Authorization": `Bearer ${token}` } })
     .then((res) => {
+      console.log(res);
       if (res.ok) {
-        return res.json()
+        console.log(res.data)
+        return res.data
       } else {
-        return Promise.reject(res)
+        return Promise.reject(res.data)
       }
     })
 })
+
 // добавление статьи
 const addArticle = ((token, card) => {
-  return fetch(`${MY_API_URL}/articles`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-    body: JSON.stringify(card)
-
-  })
+  return api.post('/articles', card, { headers: { "Authorization": `Bearer ${token}` } })
     .then((res) => {
+      console.log(res);
       if (res.ok) {
-        return res.json()
+        console.log(res.data)
+        return res.data
       } else {
-        return Promise.reject(res)
+        return Promise.reject(res.data)
       }
     })
 })
+
 //удаление статьи
 const deleteArticle = ((token, card) => {
-
-  return fetch(`${MY_API_URL}/articles/${card._id}`, {
-    method: 'DELETE',
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-
-  })
+  return api.delete(`/articles/${card._id}`, card, { headers: { "Authorization": `Bearer ${token}` } })
     .then((res) => {
+      console.log(res);
       if (res.ok) {
-        return res.json()
+        console.log(res.data)
+        return res.data
       } else {
-        return Promise.reject(res)
+        return Promise.reject(res.data)
       }
     })
 })
