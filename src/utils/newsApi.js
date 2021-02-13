@@ -11,7 +11,7 @@ export default function search(keyWord) {
   const severalDaysAgoInMilSec = Date.now() - (1000 * 3600 * 24 * NUMBER_OF_DAYS_TO_SEARCH);
   const severalDaysAgo = (new Date(severalDaysAgoInMilSec)).toISOString();
 
-  axios.get(`${BASE_URL}`, {
+  return axios.get(`${BASE_URL}`, {
     params: {
       q: keyWord,
       from: severalDaysAgo,
@@ -21,8 +21,9 @@ export default function search(keyWord) {
     }
   })
     .then((res) => {
-      if (res.ok) {
-        return res.json()
+      if (res.status === 200) {
+        console.log(res);
+        return res.data
       } else {
         return Promise.reject(`Ошибка  ${res.status}`)
       }
