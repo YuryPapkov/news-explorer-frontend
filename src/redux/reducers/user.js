@@ -1,4 +1,4 @@
-import { SET_USER, RESET_USER } from '../constants/actions-types.js';
+import { SET_USER, RESET_USER } from '../../constants/actions-types.js';
 
 const initialState = {
   name: '',

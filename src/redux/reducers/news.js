@@ -1,4 +1,4 @@
-import { SET_NEWS } from '../constants/actions-types.js';
+import { SET_NEWS } from '../../constants/actions-types.js';
 
 const initialState = []
 

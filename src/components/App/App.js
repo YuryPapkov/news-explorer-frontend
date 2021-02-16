@@ -18,7 +18,7 @@ import search from '../../utils/newsApi.js';
 import convertNewsObj from '../../utils/convertNewsObj';
 import { register, login, checkToken, getArticles, addArticle, deleteArticle } from '../../utils/mainApi.js';
 import { connect } from 'react-redux';
-import { setUser, resetUser, saveToken, deleteToken, setNews } from '../../actions/index.js';
+import { setUser, resetUser, saveToken, deleteToken, setNews } from '../../redux/actions/index.js';
 
 function App(props) {
   const history = useHistory();
