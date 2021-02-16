@@ -1,6 +1,8 @@
 import React from 'react';
 // подключаем к Store
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 
 import Navigation from '../Navigation/navigation.js';
 import logoutPath from '../../images/logout.svg';
@@ -9,8 +11,10 @@ import mobMenuPath from '../../images/mob_menu.svg';
 import mobClosePath from '../../images/mob_close.svg';
 import mobMenuBlackPath from '../../images/mob_menu_black.svg';
 
-function Header({ screenWidth, isLoggedIn, isBlackText, handleClick, curUser }) {
+function Header({ screenWidth, isLoggedIn, isBlackText, handleClick }) {
   const [isCompact, setIsCompact] = React.useState(true);
+  const name = useSelector((state) => state.user.name);
+
   const darkTextColor = isBlackText ? { color: 'black', backgroundColor: 'white' } : {};
   const greyBackgroundAndOpened = isCompact ? {} : { height: 'auto', backgroundColor: '#1a1b22', color: 'white' };
 
@@ -30,7 +34,7 @@ function Header({ screenWidth, isLoggedIn, isBlackText, handleClick, curUser }) 
             <Navigation isLoggedIn={isLoggedIn} />
             {isLoggedIn ?
               <button className="header__button" onClick={handleClick}>
-                {curUser.name}
+                {name}
                 <span>&nbsp;</span>
                 <img src={isBlackText ? logoutPath : logoutWhitePath} alt="выйти" />
               </button>
@@ -62,7 +66,7 @@ function Header({ screenWidth, isLoggedIn, isBlackText, handleClick, curUser }) 
             <Navigation isLoggedIn={isLoggedIn} onClick={resetMenu} />
             {isLoggedIn ?
               <button className="header__button" onClick={handleClick}>
-                {curUser.name}
+                {name}
                 <span>&nbsp;</span>
                 <img src={!isBlackText || !isCompact ? logoutWhitePath : logoutPath} alt="выйти" />
               </button>
@@ -76,7 +80,8 @@ function Header({ screenWidth, isLoggedIn, isBlackText, handleClick, curUser }) 
   }
 }
 
-const mapStateToProps = state => ({
-  curUser: state.user,
-})
-export default (connect(mapStateToProps))(Header);
+// const mapStateToProps = state => ({
+//   curUser: state.user,
+// })
+// export default (connect(mapStateToProps))(Header);
+export default Header;

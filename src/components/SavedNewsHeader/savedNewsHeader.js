@@ -1,7 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function SavedNewsHeader({ cardsArray, curUser }) {
+function SavedNewsHeader({ cardsArray }) {
+  const user = useSelector((state) => state.user.name);
   // создаем из массива карточек массив ключевых слов и сортируем
   const arrayOfKeywords = cardsArray.map((item) => item.keyword).sort();
   // создаем из массива ключевых слов массив с объектами вида{keyword: слово, number: 5}
@@ -55,14 +57,14 @@ function SavedNewsHeader({ cardsArray, curUser }) {
   return (
     <div className="sn-header">
       <h2 className="sn-header__title">Сохраненные статьи</h2>
-      <p className="sn-header__info">{curUser.name}, у Вас {arrayOfKeywords.length}<br /> сохраненных статей </p>
+      <p className="sn-header__info">{user}, у Вас {arrayOfKeywords.length}<br /> сохраненных статей </p>
       <p className="sn-header__subtitle">{phraseStart}<span className="sn-header__span">{phraseSpan}</span></p>
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-  curUser: state.user
-})
+// const mapStateToProps = state => ({
+//   curUser: state.user
+// })
 
-export default (connect(mapStateToProps))(SavedNewsHeader);
+export default SavedNewsHeader;
