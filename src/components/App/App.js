@@ -34,6 +34,7 @@ function App() {
   const [savedNews, setSavedNews] = React.useState([]);
   const curToken = useSelector(state => state.token);
   const curNews = useSelector(state => state.news);
+  const curUser = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   document.addEventListener('keyup', (evt) => {
@@ -41,6 +42,7 @@ function App() {
       closeAllPopups();
     }
   })
+  console.log(curNews, curToken, curUser);
   React.useEffect(() => {
     const token = curToken;
     if (token) {
