@@ -1,4 +1,4 @@
-import { SAVE_TOKEN, DELETE_TOKEN } from '../constants/actions-types.js';
+import { SAVE_TOKEN, DELETE_TOKEN } from '../../constants/actions-types.js';
 
 const initialState = '';
 

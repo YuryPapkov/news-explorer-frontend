@@ -17,10 +17,10 @@ import ProtectedRoute from '../ProtectedRoute/protectedRoute.js';
 import search from '../../utils/newsApi.js';
 import convertNewsObj from '../../utils/convertNewsObj';
 import { register, login, checkToken, getArticles, addArticle, deleteArticle } from '../../utils/mainApi.js';
-import { connect } from 'react-redux';
-import { setUser, resetUser, saveToken, deleteToken, setNews } from '../../actions/index.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUser, resetUser, saveToken, deleteToken, setNews } from '../../redux/actions/index.js';
 
-function App(props) {
+function App() {
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [screenWidth, setScreenWidth] = React.useState(1440);
@@ -32,20 +32,23 @@ function App(props) {
   const [hasUserPressedSearchOnce, setHasUserPressedSearchOnce] = React.useState(false);
   const [errorText, setErrorText] = React.useState('');
   const [savedNews, setSavedNews] = React.useState([]);
-  const { curToken, curNews } = props;
+  const curToken = useSelector(state => state.token);
+  const curNews = useSelector(state => state.news);
+  const curUser = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   document.addEventListener('keyup', (evt) => {
     if (evt.code === 'Escape') {
       closeAllPopups();
     }
   })
-  console.log(props);
+  console.log(curNews, curToken, curUser);
   React.useEffect(() => {
     const token = curToken;
     if (token) {
       checkToken(token)
         .then((res) => {
-          props.setUser({ name: res.data.name, email: res.data.email });
+          dispatch(setUser({ name: res.data.name, email: res.data.email }));
           setIsLoggedIn(true);
           getArticles(token)
             .then((res) => {
@@ -81,7 +84,7 @@ function App(props) {
     search(keyWord)
       .then((res) => {
         const articlesNewArray = res.articles.map(item => convertNewsObj(item, keyWord));
-        props.setNews(articlesNewArray); //redux store
+        dispatch(setNews(articlesNewArray)); //redux store
         setShowPreloader(false);
         if (res.articles.length === 0) {
           setIsSomethingFound(false);
@@ -147,7 +150,7 @@ function App(props) {
     login(data)
       .then((res) => {
         console.log(res);
-        props.saveToken(res.token); //redux store
+        dispatch(saveToken(res.token)); //redux store
         getArticles(res.token)
           .then((res) => {
             setSavedNews(res.data);
@@ -161,7 +164,7 @@ function App(props) {
         console.log(res);
         checkToken(res)
           .then((res) => {
-            props.setUser({ name: res.data.name, email: res.data.email }); //redux store
+            dispatch(setUser({ name: res.data.name, email: res.data.email })); //redux store
             setIsLoggedIn(true);
             closeAllPopups();
           })
@@ -189,8 +192,8 @@ function App(props) {
 
   // логика выхода 
   function handleLogout() {
-    props.deleteToken(); //redux store
-    props.resetUser(); //redux store
+    dispatch(deleteToken()); //redux store
+    dispatch(resetUser()); //redux store
     setIsLoggedIn(false);
     history.push('/');
   }
@@ -289,18 +292,18 @@ function App(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  curUser: state.user,
-  curToken: state.token,
-  curNews: state.news
-})
+// const mapStateToProps = state => ({
+//   curUser: state.user,
+//   curToken: state.token,
+//   curNews: state.news
+// })
 
-const mapDispatchToProps = dispatch => ({
-  setUser: userData => dispatch(setUser(userData)),
-  resetUser: () => dispatch(resetUser()),
-  saveToken: token => dispatch(saveToken(token)),
-  deleteToken: () => dispatch(deleteToken()),
-  setNews: (news) => dispatch(setNews(news))
-})
+// const mapDispatchToProps = dispatch => ({
+//   setUser: userData => dispatch(setUser(userData)),
+//   resetUser: () => dispatch(resetUser()),
+//   saveToken: token => dispatch(saveToken(token)),
+//   deleteToken: () => dispatch(deleteToken()),
+//   setNews: (news) => dispatch(setNews(news))
+// })
 
-export default (connect(mapStateToProps, mapDispatchToProps))(App);
+export default App;
